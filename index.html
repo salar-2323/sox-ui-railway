@@ -1,968 +1,1298 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<title>Pasargad Panel — SOX-UI</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<style>
-:root {
-    --bg: #020617;
-    --bg-soft: #050816;
-    --card: #0b1120;
-    --card-soft: #0f172a;
-    --border: #1f2937;
-    --accent: #fbbf24; /* طلایی پاسارگاد */
-    --accent-2: #38bdf8;
-    --accent-soft: rgba(251,191,36,0.16);
-    --text: #e5e7eb;
-    --muted: #9ca3af;
-    --danger: #ef4444;
-    --success: #22c55e;
-    --warning: #facc15;
-    --radius: 18px;
-    --blur: 18px;
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
-
-body {
-    min-height: 100vh;
-    background:
-        radial-gradient(circle at top left, #1f2937 0, #020617 40%, #000 100%),
-        radial-gradient(circle at bottom right, #0f172a 0, #020617 40%, #000 100%);
-    color: var(--text);
-    display: flex;
-}
-
-/* GLASS EFFECT */
-.glass {
-    background: linear-gradient(135deg, rgba(15,23,42,0.92), rgba(15,23,42,0.78));
-    border-radius: var(--radius);
-    border: 1px solid rgba(148,163,184,0.18);
-    box-shadow:
-        0 24px 60px rgba(15,23,42,0.9),
-        0 0 0 1px rgba(15,23,42,0.8);
-    backdrop-filter: blur(var(--blur));
-}
-
-/* SIDEBAR */
-.sidebar {
-    width: 270px;
-    padding: 20px 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.brand {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.brand-logo-wrap {
-    position: relative;
-}
-
-.brand-orbit {
-    position: absolute;
-    inset: -6px;
-    border-radius: 999px;
-    border: 1px dashed rgba(251,191,36,0.4);
-    opacity: 0.7;
-}
-
-.brand-logo {
-    width: 40px;
-    height: 40px;
-    border-radius: 14px;
-    background:
-        radial-gradient(circle at 20% 0, #fbbf24 0, #f59e0b 40%, #0f172a 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
-    font-size: 18px;
-    color: #020617;
-    box-shadow:
-        0 0 24px rgba(251,191,36,0.8),
-        0 0 0 1px rgba(15,23,42,0.9);
-}
-
-.brand-text-main {
-    font-size: 16px;
-    font-weight: 600;
-}
-
-.brand-text-sub {
-    font-size: 11px;
-    color: var(--muted);
-}
-
-.brand-badge {
-    margin-top: 4px;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 3px 8px;
-    border-radius: 999px;
-    background: rgba(251,191,36,0.08);
-    border: 1px solid rgba(251,191,36,0.35);
-    font-size: 10px;
-    color: var(--accent);
-}
-
-/* NAV */
-.nav-section-title {
-    font-size: 11px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    margin: 10px 4px 6px;
-}
-
-.nav-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.nav-link {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 9px 11px;
-    border-radius: 11px;
-    color: var(--muted);
-    font-size: 13px;
-    cursor: pointer;
-    transition: 0.18s;
-    position: relative;
-}
-
-.nav-link::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background: radial-gradient(circle at left, rgba(251,191,36,0.18), transparent 55%);
-    opacity: 0;
-    transition: 0.18s;
-}
-
-.nav-link:hover::before {
-    opacity: 1;
-}
-
-.nav-link:hover {
-    color: var(--text);
-}
-
-.nav-link.active {
-    background: linear-gradient(135deg, rgba(251,191,36,0.18), rgba(56,189,248,0.16));
-    color: var(--accent);
-    border: 1px solid rgba(251,191,36,0.5);
-}
-
-.nav-icon {
-    width: 22px;
-    height: 22px;
-    border-radius: 999px;
-    border: 1px solid rgba(31,41,55,0.9);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-}
-
-.nav-footer {
-    margin-top: auto;
-    font-size: 11px;
-    color: var(--muted);
-    padding-top: 10px;
-    border-top: 1px solid rgba(15,23,42,0.9);
-}
-
-/* MAIN */
-.main {
-    flex: 1;
-    padding: 20px 22px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-}
-
-/* HEADER */
-.header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.header-left {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.header-title {
-    font-size: 20px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.header-title span.accent {
-    font-size: 11px;
-    padding: 3px 8px;
-    border-radius: 999px;
-    background: rgba(251,191,36,0.12);
-    border: 1px solid rgba(251,191,36,0.4);
-    color: var(--accent);
-}
-
-.header-sub {
-    font-size: 12px;
-    color: var(--muted);
-}
-
-.header-right {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.btn {
-    border: none;
-    outline: none;
-    cursor: pointer;
-    border-radius: 999px;
-    padding: 7px 14px;
-    font-size: 12px;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    transition: 0.18s;
-}
-
-.btn-primary {
-    background: linear-gradient(135deg, #fbbf24, #f59e0b);
-    color: #020617;
-    font-weight: 500;
-    box-shadow: 0 0 22px rgba(251,191,36,0.7);
-}
-
-.btn-primary:hover {
-    filter: brightness(1.05);
-}
-
-.btn-outline {
-    background: rgba(15,23,42,0.9);
-    border: 1px solid rgba(31,41,55,0.9);
-    color: var(--muted);
-}
-
-.btn-outline:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-}
-
-.user-pill {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 11px;
-    border-radius: 999px;
-    background: rgba(15,23,42,0.95);
-    border: 1px solid rgba(31,41,55,0.9);
-    font-size: 12px;
-}
-
-.user-avatar {
-    width: 24px;
-    height: 24px;
-    border-radius: 999px;
-    background:
-        radial-gradient(circle at 20% 0, #fbbf24 0, #f59e0b 40%, #0f172a 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
-    font-weight: 600;
-}
-
-/* GRID */
-.grid-2 {
-    display: grid;
-    grid-template-columns: 2fr 1.4fr;
-    gap: 14px;
-}
-
-/* CARD */
-.card {
-    padding: 14px 14px 12px;
-}
-
-.card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 8px;
-}
-
-.card-title {
-    font-size: 14px;
-    font-weight: 500;
-}
-
-.card-sub {
-    font-size: 11px;
-    color: var(--muted);
-}
-
-/* STATS */
-.stats-row {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 10px;
-    margin-top: 8px;
-}
-
-.stat-pill {
-    padding: 9px 10px;
-    border-radius: 12px;
-    background: radial-gradient(circle at top, rgba(15,23,42,0.95), rgba(15,23,42,0.85));
-    border: 1px solid rgba(31,41,55,0.9);
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.stat-label {
-    font-size: 11px;
-    color: var(--muted);
-}
-
-.stat-value {
-    font-size: 15px;
-    font-weight: 600;
-}
-
-.stat-tag {
-    font-size: 10px;
-    padding: 2px 7px;
-    border-radius: 999px;
-    background: rgba(34,197,94,0.12);
-    color: var(--success);
-    align-self: flex-start;
-}
-
-/* TABLE */
-.table-wrap {
-    margin-top: 6px;
-    border-radius: 12px;
-    border: 1px solid rgba(15,23,42,0.9);
-    overflow: hidden;
-}
-
-.table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 12px;
-}
-
-.table th,
-.table td {
-    padding: 7px 8px;
-    text-align: right;
-}
-
-.table th {
-    color: var(--muted);
-    font-weight: 500;
-    background: rgba(15,23,42,0.96);
-}
-
-.table tr {
-    border-bottom: 1px solid rgba(15,23,42,0.9);
-}
-
-.table tr:nth-child(even) {
-    background: rgba(15,23,42,0.85);
-}
-
-.table tr:hover {
-    background: rgba(15,23,42,0.9);
-}
-
-.badge {
-    font-size: 10px;
-    padding: 2px 7px;
-    border-radius: 999px;
-    border: 1px solid rgba(31,41,55,0.9);
-}
-
-.badge-proto {
-    color: var(--accent-2);
-    border-color: rgba(56,189,248,0.6);
-}
-
-.badge-active {
-    color: var(--success);
-    border-color: rgba(34,197,94,0.6);
-}
-
-.badge-expired {
-    color: var(--danger);
-    border-color: rgba(239,68,68,0.6);
-}
-
-.badge-pending {
-    color: var(--warning);
-    border-color: rgba(250,204,21,0.6);
-}
-
-.row-actions {
-    display: flex;
-    gap: 6px;
-}
-
-.link {
-    font-size: 11px;
-    color: var(--accent-2);
-    cursor: pointer;
-}
-
-.link:hover {
-    text-decoration: underline;
-}
-
-/* FORM */
-.form-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
-    margin-top: 8px;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.form-label {
-    font-size: 11px;
-    color: var(--muted);
-}
-
-.form-input,
-.form-select,
-.form-textarea {
-    background: rgba(15,23,42,0.95);
-    border-radius: 10px;
-    border: 1px solid rgba(31,41,55,0.9);
-    padding: 7px 9px;
-    font-size: 12px;
-    color: var(--text);
-    outline: none;
-    transition: border-color 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
-}
-
-.form-input:focus,
-.form-select:focus,
-.form-textarea:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 1px rgba(251,191,36,0.4);
-    background: rgba(15,23,42,0.98);
-}
-
-.form-textarea {
-    min-height: 70px;
-    resize: vertical;
-}
-
-.form-hint {
-    font-size: 10px;
-    color: var(--muted);
-    margin-top: 4px;
-}
-
-.form-footer {
-    display: flex;
-    justify-content: flex-end;
-    gap: 8px;
-    margin-top: 10px;
-}
-
-/* PAGES */
-.page { display: none; }
-.page.active { display: block; }
-
-/* LOGS */
-.logs-box {
-    min-height: 150px;
-    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    font-size: 11px;
-    background: radial-gradient(circle at top, rgba(15,23,42,0.96), rgba(15,23,42,0.9));
-    border-radius: 12px;
-    border: 1px solid rgba(31,41,55,0.9);
-    padding: 10px;
-    color: #9ca3af;
-    overflow: auto;
-}
-
-/* RESPONSIVE */
-@media (max-width: 980px) {
-    .sidebar { display: none; }
-    .grid-2 { grid-template-columns: 1fr; }
-}
-
-@media (max-width: 640px) {
-    .header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>پنل مدیریت 3x-ui</title>
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <!-- Vazir Font -->
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" />
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
+  </script>
+  <style>
+    /* ===== RESET & BASE ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Vazir', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-    .header-right {
-        width: 100%;
-        justify-content: flex-start;
-        flex-wrap: wrap;
+    body {
+      background: #0b0b1a;
+      color: #eaeef2;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      direction: rtl;
     }
-}
-</style>
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #f7971e, #ffd200);
+      border-radius: 10px;
+    }
+
+    /* ===== LOGIN PAGE ===== */
+    #loginPage {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      width: 100%;
+      background: radial-gradient(circle at 30% 20%, #1a1a3e, #0b0b1a);
+    }
+    .login-box {
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(16px);
+      border-radius: 32px;
+      padding: 40px 36px;
+      width: 100%;
+      max-width: 400px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+    }
+    .login-box .brand {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .login-box .brand i {
+      font-size: 3rem;
+      background: linear-gradient(145deg, #f093fb, #f5576c);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .login-box .brand h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(to right, #f7971e, #ffd200);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-top: 6px;
+    }
+    .login-box .brand p {
+      color: rgba(255, 255, 255, 0.2);
+      font-size: 0.85rem;
+      margin-top: 4px;
+    }
+    .login-box .form-group {
+      margin-bottom: 18px;
+    }
+    .login-box .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 6px;
+    }
+    .login-box .form-group input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 14px;
+      padding: 12px 16px;
+      color: #fff;
+      font-size: 0.95rem;
+      transition: 0.3s;
+      outline: none;
+    }
+    .login-box .form-group input:focus {
+      border-color: #ffd700;
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.05);
+    }
+    .login-box .btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 14px;
+      font-weight: 600;
+      font-size: 1rem;
+      background: linear-gradient(145deg, #f7971e, #ffd200);
+      color: #0b0b1a;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 6px 20px rgba(247, 151, 30, 0.25);
+    }
+    .login-box .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(247, 151, 30, 0.4);
+    }
+    .login-error {
+      color: #f5576c;
+      font-size: 0.85rem;
+      margin-top: 12px;
+      text-align: center;
+      display: none;
+    }
+
+    /* ===== MAIN APP (hidden until login) ===== */
+    #app {
+      display: none;
+      width: 100%;
+      min-height: 100vh;
+      flex-direction: row;
+    }
+    #app.show {
+      display: flex;
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      width: 220px;
+      min-height: 100vh;
+      background: rgba(20, 20, 40, 0.92);
+      backdrop-filter: blur(16px);
+      border-left: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 24px 10px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .sidebar .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 4px 10px 20px 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      margin-bottom: 10px;
+    }
+    .sidebar .brand i {
+      font-size: 2rem;
+      background: linear-gradient(145deg, #f093fb, #f5576c);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .sidebar .brand h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      background: linear-gradient(to right, #f7971e, #ffd200);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .sidebar .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      color: rgba(255, 255, 255, 0.4);
+      cursor: pointer;
+      transition: 0.25s ease;
+      font-size: 0.9rem;
+      font-weight: 500;
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: right;
+    }
+    .sidebar .nav-item i {
+      width: 20px;
+      font-size: 1rem;
+    }
+    .sidebar .nav-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+    }
+    .sidebar .nav-item.active {
+      background: rgba(247, 151, 30, 0.12);
+      color: #ffd700;
+      box-shadow: inset 3px 0 0 #ffd700;
+    }
+    .sidebar .nav-item .badge {
+      margin-right: auto;
+      background: rgba(255, 215, 0, 0.12);
+      padding: 2px 10px;
+      border-radius: 30px;
+      font-size: 0.65rem;
+      color: #ffd700;
+    }
+    .sidebar .logout-btn {
+      margin-top: auto;
+      padding: 10px 14px;
+      border: none;
+      background: rgba(245, 87, 108, 0.1);
+      color: #f5576c;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: 0.3s;
+      width: 100%;
+      text-align: right;
+      font-family: 'Vazir', sans-serif;
+    }
+    .sidebar .logout-btn:hover {
+      background: rgba(245, 87, 108, 0.2);
+    }
+
+    /* ===== MAIN CONTENT ===== */
+    .main-content {
+      flex: 1;
+      padding: 24px 32px 32px 32px;
+      overflow-x: hidden;
+    }
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .page-header h2 {
+      font-weight: 600;
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .page-header h2 i {
+      color: #ffd700;
+    }
+    .page-header .date-badge {
+      background: rgba(255, 255, 255, 0.04);
+      padding: 6px 18px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      color: #aaa;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    /* ===== PAGES ===== */
+    .page {
+      display: none;
+      animation: fadeUp 0.35s ease;
+    }
+    .page.active {
+      display: block;
+    }
+    @keyframes fadeUp {
+      0% {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ===== STATS ===== */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(10px);
+      border-radius: 18px;
+      padding: 16px 18px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: 0.3s;
+    }
+    .stat-card:hover {
+      border-color: rgba(255, 215, 0, 0.1);
+      transform: translateY(-2px);
+    }
+    .stat-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: rgba(247, 151, 30, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      color: #ffd700;
+      flex-shrink: 0;
+    }
+    .stat-info .label {
+      font-size: 0.7rem;
+      color: rgba(255, 255, 255, 0.35);
+    }
+    .stat-info .value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+    }
+
+    /* ===== CARDS & TABLES ===== */
+    .card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 20px 22px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+      margin-bottom: 20px;
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .card-header h3 {
+      font-weight: 500;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-header h3 i {
+      color: #ffd700;
+    }
+    .table-wrap {
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+    table th {
+      text-align: right;
+      padding: 10px 8px;
+      color: rgba(255, 255, 255, 0.3);
+      font-weight: 500;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      white-space: nowrap;
+    }
+    table td {
+      padding: 12px 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+      color: #ddd;
+      vertical-align: middle;
+    }
+    table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .badge {
+      padding: 3px 12px;
+      border-radius: 30px;
+      font-size: 0.65rem;
+      background: rgba(56, 239, 125, 0.1);
+      color: #38ef7d;
+      border: 1px solid rgba(56, 239, 125, 0.06);
+      white-space: nowrap;
+    }
+    .badge.off {
+      background: rgba(245, 87, 108, 0.1);
+      color: #f5576c;
+    }
+    .badge.ws {
+      background: rgba(56, 128, 255, 0.1);
+      color: #3880ff;
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      padding: 6px 18px;
+      border: none;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: 0.3s ease;
+      font-family: 'Vazir', sans-serif;
+      background: linear-gradient(145deg, #f7971e, #ffd200);
+      color: #0b0b1a;
+      box-shadow: 0 4px 14px rgba(247, 151, 30, 0.2);
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(247, 151, 30, 0.3);
+    }
+    .btn-sm {
+      padding: 4px 12px;
+      font-size: 0.7rem;
+    }
+    .btn-outline {
+      background: transparent;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: none;
+    }
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: #ffd700;
+      color: #ffd700;
+    }
+    .btn-danger {
+      background: linear-gradient(145deg, #f5576c, #f093fb);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(245, 87, 108, 0.2);
+    }
+    .btn-icon {
+      background: rgba(255, 255, 255, 0.04);
+      border: none;
+      color: #aaa;
+      width: 30px;
+      height: 30px;
+      border-radius: 30px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .btn-icon:hover {
+      background: rgba(255, 215, 0, 0.1);
+      color: #ffd700;
+    }
+
+    /* ===== MODAL ===== */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(6px);
+      z-index: 999;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .modal-overlay.show {
+      display: flex;
+    }
+    .modal-box {
+      background: #1a1a30;
+      border-radius: 24px;
+      padding: 28px 30px;
+      max-width: 560px;
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
+      max-height: 90vh;
+      overflow-y: auto;
+      animation: scaleIn 0.3s ease;
+    }
+    @keyframes scaleIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.94);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    .modal-box .modal-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .modal-box .modal-title i {
+      color: #ffd700;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 14px;
+    }
+    .form-group label {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.5);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .form-group label i {
+      color: #ffd700;
+      width: 16px;
+    }
+    .form-group input,
+    .form-group select {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 10px 14px;
+      color: #fff;
+      font-size: 0.9rem;
+      transition: 0.3s;
+      outline: none;
+      font-family: 'Vazir', sans-serif;
+    }
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: #ffd700;
+      background: rgba(255, 255, 255, 0.07);
+    }
+    .form-group select option {
+      background: #1a1a30;
+      color: #fff;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 500px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===== TOAST ===== */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(12px);
+      color: #fff;
+      padding: 10px 28px;
+      border-radius: 50px;
+      border: 1px solid rgba(255, 215, 0, 0.1);
+      font-size: 0.9rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.4s ease;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .toast.show {
+      opacity: 1;
+      visibility: visible;
+      bottom: 40px;
+    }
+    .toast i {
+      color: #ffd700;
+    }
+
+    /* ===== EMPTY ===== */
+    .empty-state {
+      text-align: center;
+      padding: 30px 0;
+      color: rgba(255, 255, 255, 0.12);
+      font-style: italic;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 820px) {
+      .sidebar {
+        width: 64px;
+        padding: 16px 6px;
+      }
+      .sidebar .brand h2,
+      .sidebar .nav-item span:not(.badge),
+      .sidebar .logout-btn span {
+        display: none;
+      }
+      .sidebar .nav-item {
+        justify-content: center;
+        padding: 12px 0;
+      }
+      .sidebar .nav-item i {
+        font-size: 1.2rem;
+        width: auto;
+      }
+      .sidebar .logout-btn {
+        justify-content: center;
+      }
+      .main-content {
+        padding: 16px;
+      }
+    }
+    @media (max-width: 600px) {
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .login-box {
+        padding: 28px 20px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<!-- SIDEBAR -->
-<aside class="sidebar glass">
-    <div class="brand">
-        <div class="brand-logo-wrap">
-            <div class="brand-orbit"></div>
-            <div class="brand-logo">PG</div>
+  <!-- ==============================================================
+  LOGIN PAGE
+  ============================================================== -->
+  <div id="loginPage">
+    <div class="login-box">
+      <div class="brand">
+        <i class="fas fa-network-wired"></i>
+        <h1>۳x-ui</h1>
+        <p>پنل مدیریت</p>
+      </div>
+      <form id="loginForm">
+        <div class="form-group">
+          <label><i class="fas fa-user"></i> نام کاربری</label>
+          <input type="text" id="loginUsername" value="admin" placeholder="admin" />
         </div>
-        <div>
-            <div class="brand-text-main">Pasargad Panel</div>
-            <div class="brand-text-sub">SOX-UI / Reluy / Railway</div>
-            <div class="brand-badge">
-                <span>⚡ God Mode</span>
-                <span>طلایی پاسارگاد</span>
-            </div>
+        <div class="form-group">
+          <label><i class="fas fa-lock"></i> رمز عبور</label>
+          <input type="password" id="loginPassword" value="admin" placeholder="admin" />
         </div>
+        <button type="submit" class="btn">ورود <i class="fas fa-arrow-left"></i></button>
+        <div class="login-error" id="loginError">نام کاربری یا رمز عبور اشتباه است</div>
+      </form>
     </div>
+  </div>
 
-    <div class="nav-section-title">ناوبری اصلی</div>
-    <ul class="nav-list">
-        <li><div class="nav-link active" data-page="dashboard"><div class="nav-icon">🏠</div><span>داشبورد</span></div></li>
-        <li><div class="nav-link" data-page="users"><div class="nav-icon">👥</div><span>کاربران</span></div></li>
-        <li><div class="nav-link" data-page="configs"><div class="nav-icon">📜</div><span>کانفیگ‌ها</span></div></li>
-        <li><div class="nav-link" data-page="subs"><div class="nav-icon">🔗</div><span>لینک ساب</span></div></li>
-        <li><div class="nav-link" data-page="create-config"><div class="nav-icon">➕</div><span>ساخت کانفیگ</span></div></li>
-        <li><div class="nav-link" data-page="settings"><div class="nav-icon">⚙️</div><span>تنظیمات</span></div></li>
-        <li><div class="nav-link" data-page="logs"><div class="nav-icon">📄</div><span>لاگ‌ها</span></div></li>
-    </ul>
+  <!-- ==============================================================
+  MAIN APP
+  ============================================================== -->
+  <div id="app">
 
-    <div class="nav-footer">
-        نسخه 1.0.0 — Pasargad Panel  
-        <br>فرانت‌اند آماده اتصال به بک‌اند Railway
+    <!-- SIDEBAR -->
+    <nav class="sidebar">
+      <div class="brand">
+        <i class="fas fa-network-wired"></i>
+        <h2>۳x-ui</h2>
+      </div>
+      <button class="nav-item active" data-page="dashboard"><i class="fas fa-th-large"></i><span>داشبورد</span></button>
+      <button class="nav-item" data-page="inbounds"><i class="fas fa-sign-in-alt"></i><span>اینباندها</span><span class="badge" id="inboundCount">0</span></button>
+      <button class="nav-item" data-page="clients"><i class="fas fa-users"></i><span>کاربران</span><span class="badge" id="clientCount">0</span></button>
+      <button class="nav-item" data-page="settings"><i class="fas fa-cog"></i><span>تنظیمات</span></button>
+      <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i><span>خروج</span></button>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+
+      <!-- Toast -->
+      <div id="toast" class="toast"><i class="fas fa-check-circle"></i><span id="toastMsg">عملیات موفق</span></div>
+
+      <!-- ===== PAGE: DASHBOARD ===== -->
+      <section id="page-dashboard" class="page active">
+        <div class="page-header">
+          <h2><i class="fas fa-th-large"></i> داشبورد</h2>
+          <span class="date-badge"><i class="far fa-calendar-alt"></i> <span id="todayDate"></span></span>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card"><div class="stat-icon"><i class="fas fa-sign-in-alt"></i></div><div class="stat-info"><div class="label">اینباندها</div><div class="value" id="statInbounds">0</div></div></div>
+          <div class="stat-card"><div class="stat-icon"><i class="fas fa-users"></i></div><div class="stat-info"><div class="label">کاربران</div><div class="value" id="statClients">0</div></div></div>
+          <div class="stat-card"><div class="stat-icon"><i class="fas fa-wifi"></i></div><div class="stat-info"><div class="label">آنلاین</div><div class="value" id="statOnline">0</div></div></div>
+          <div class="stat-card"><div class="stat-icon"><i class="fas fa-chart-line"></i></div><div class="stat-info"><div class="label">ترافیک امروز</div><div class="value" id="statTraffic">0 GB</div></div></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><h3><i class="fas fa-chart-area"></i> مصرف ترافیک (۷ روز)</h3></div>
+          <div style="height:200px;"><canvas id="trafficChart"></canvas></div>
+        </div>
+      </section>
+
+      <!-- ===== PAGE: INBOUNDS ===== -->
+      <section id="page-inbounds" class="page">
+        <div class="page-header">
+          <h2><i class="fas fa-sign-in-alt"></i> مدیریت اینباندها</h2>
+          <button class="btn" id="addInboundBtn"><i class="fas fa-plus"></i> افزودن</button>
+        </div>
+        <div class="card">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>#</th><th>پورت</th><th>پروتکل</th><th>UUID</th><th>Network</th><th>عملیات</th></tr></thead>
+              <tbody id="inboundTableBody"><tr><td colspan="6" class="empty-state">هیچ اینباندی وجود ندارد</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== PAGE: CLIENTS ===== -->
+      <section id="page-clients" class="page">
+        <div class="page-header">
+          <h2><i class="fas fa-users"></i> مدیریت کاربران</h2>
+          <button class="btn" id="addClientBtn"><i class="fas fa-plus"></i> افزودن</button>
+        </div>
+        <div class="card">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>#</th><th>نام کاربری</th><th>ایمیل</th><th>انقضا</th><th>حجم</th><th>عملیات</th></tr></thead>
+              <tbody id="clientTableBody"><tr><td colspan="6" class="empty-state">هیچ کاربری ثبت نشده است</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== PAGE: SETTINGS ===== -->
+      <section id="page-settings" class="page">
+        <div class="page-header"><h2><i class="fas fa-cog"></i> تنظیمات</h2></div>
+        <div class="card">
+          <div class="form-group">
+            <label><i class="fas fa-palette"></i> تم</label>
+            <select id="settingsTheme"><option value="dark">تاریک</option><option value="light">روشن</option></select>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:6px;">
+            <button class="btn btn-outline btn-sm" id="exportBtn"><i class="fas fa-file-export"></i> خروجی JSON</button>
+            <button class="btn btn-outline btn-sm" id="importBtn"><i class="fas fa-file-import"></i> ورودی JSON</button>
+            <input type="file" id="importFileInput" accept=".json" style="display:none;" />
+            <button class="btn btn-danger btn-sm" id="resetBtn"><i class="fas fa-trash-alt"></i> ریست</button>
+          </div>
+          <button class="btn" id="saveSettingsBtn" style="margin-top:16px;"><i class="fas fa-save"></i> ذخیره</button>
+        </div>
+      </section>
+
     </div>
-</aside>
+  </div>
 
-<!-- MAIN -->
-<main class="main">
-    <!-- HEADER -->
-    <header class="header">
-        <div class="header-left">
-            <div class="header-title">
-                پنل مدیریت پاسارگاد
-                <span class="accent">SOX-UI / Reluy / 3x-UI Style</span>
-            </div>
-            <div class="header-sub">
-                همه‌چیز زیر کنترل توست: کاربران، کانفیگ‌ها، ساب، لاگ، تنظیمات — با ظاهر طلایی و نئونی پاسارگاد.
-            </div>
+  <!-- ==============================================================
+  MODAL: INBOUND
+  ============================================================== -->
+  <div class="modal-overlay" id="inboundModal">
+    <div class="modal-box">
+      <div class="modal-title"><i class="fas fa-sign-in-alt"></i> <span id="inboundModalTitle">افزودن اینباند</span></div>
+      <form id="inboundForm">
+        <input type="hidden" id="editInboundIndex" value="-1" />
+        <div class="form-row">
+          <div class="form-group"><label><i class="fas fa-plug"></i> پورت</label><input type="number" id="inbPort" value="443" required /></div>
+          <div class="form-group"><label><i class="fas fa-shield-alt"></i> پروتکل</label>
+            <select id="inbProtocol"><option value="vmess">VMess</option><option value="vless">VLESS</option><option value="trojan">Trojan</option></select>
+          </div>
         </div>
-        <div class="header-right">
-            <button class="btn btn-outline" id="themeToggle">تم</button>
-            <button class="btn btn-primary" data-page="create-config">ساخت سریع کانفیگ</button>
-            <div class="user-pill">
-                <div class="user-avatar">AD</div>
-                <span>ادمین پاسارگاد</span>
-            </div>
+        <div class="form-group"><label><i class="fas fa-user-shield"></i> UUID</label>
+          <div style="display:flex; gap:6px;"><input type="text" id="inbUuid" style="flex:1;" /><button type="button" class="btn btn-sm btn-outline" id="genUuidBtn"><i class="fas fa-sync-alt"></i></button></div>
         </div>
-    </header>
-
-    <!-- DASHBOARD -->
-    <section class="page active glass card" id="page-dashboard">
-        <div class="card-header">
-            <div>
-                <div class="card-title">آمار کلی سرور</div>
-                <div class="card-sub">وضعیت کاربران، کانفیگ‌ها و ترافیک امروز</div>
-            </div>
+        <div class="form-row">
+          <div class="form-group"><label><i class="fas fa-layer-group"></i> Alter ID</label><input type="number" id="inbAlterId" value="0" /></div>
+          <div class="form-group"><label><i class="fas fa-lock"></i> رمزنگاری</label>
+            <select id="inbEncryption"><option value="chacha20-poly1305" selected>chacha20-poly1305</option><option value="aes-128-gcm">aes-128-gcm</option></select>
+          </div>
         </div>
-        <div class="stats-row">
-            <div class="stat-pill">
-                <div class="stat-label">کاربران فعال</div>
-                <div class="stat-value" id="stat-users">24</div>
-                <div class="stat-tag">در حال استفاده</div>
-            </div>
-            <div class="stat-pill">
-                <div class="stat-label">کانفیگ‌های فعال</div>
-                <div class="stat-value" id="stat-configs">38</div>
-                <div class="stat-tag">بدون خطا</div>
-            </div>
-            <div class="stat-pill">
-                <div class="stat-label">ترافیک امروز</div>
-                <div class="stat-value" id="stat-traffic">92 GB</div>
-                <div class="stat-tag">+18% نسبت به دیروز</div>
-            </div>
+        <div class="form-row">
+          <div class="form-group"><label><i class="fas fa-network-wired"></i> Network</label>
+            <select id="inbNetwork"><option value="ws">ws</option><option value="tcp">tcp</option></select>
+          </div>
+          <div class="form-group"><label><i class="fas fa-road"></i> Path</label><input type="text" id="inbPath" value="/" /></div>
         </div>
-    </section>
-
-    <!-- USERS PAGE -->
-    <section class="page glass card" id="page-users">
-        <div class="card-header">
-            <div>
-                <div class="card-title">مدیریت کاربران</div>
-                <div class="card-sub">لیست کاربران، وضعیت، حجم، تاریخ انقضا</div>
-            </div>
-            <button class="btn btn-outline">افزودن کاربر</button>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:6px;">
+          <button type="submit" class="btn"><i class="fas fa-save"></i> ذخیره</button>
+          <button type="button" class="btn btn-outline" id="closeInboundModal">انصراف</button>
         </div>
-        <div class="table-wrap">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>نام کاربر</th>
-                        <th>وضعیت</th>
-                        <th>حجم باقی‌مانده</th>
-                        <th>انقضا</th>
-                        <th>عملیات</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>vip-user</td>
-                        <td><span class="badge badge-active">فعال</span></td>
-                        <td>120 GB</td>
-                        <td>45 روز</td>
-                        <td>
-                            <div class="row-actions">
-                                <span class="link">ویرایش</span>
-                                <span class="link">نمایش کانفیگ‌ها</span>
-                                <span class="link">مسدود</span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>test-expired</td>
-                        <td><span class="badge badge-expired">منقضی</span></td>
-                        <td>0 GB</td>
-                        <td>0 روز</td>
-                        <td>
-                            <div class="row-actions">
-                                <span class="link">تمدید</span>
-                                <span class="link">حذف</span>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==============================================================
+  MODAL: CLIENT
+  ============================================================== -->
+  <div class="modal-overlay" id="clientModal">
+    <div class="modal-box">
+      <div class="modal-title"><i class="fas fa-user-plus"></i> افزودن کاربر</div>
+      <form id="clientForm">
+        <div class="form-group"><label><i class="fas fa-user"></i> نام کاربری</label><input type="text" id="cliUsername" required /></div>
+        <div class="form-group"><label><i class="fas fa-envelope"></i> ایمیل</label><input type="email" id="cliEmail" /></div>
+        <div class="form-row">
+          <div class="form-group"><label><i class="fas fa-calendar-alt"></i> انقضا</label><input type="date" id="cliExpiry" /></div>
+          <div class="form-group"><label><i class="fas fa-tachometer-alt"></i> حجم (GB)</label><input type="number" id="cliTraffic" value="100" /></div>
         </div>
-    </section>
-
-    <!-- CONFIGS PAGE -->
-    <section class="page glass card" id="page-configs">
-        <div class="card-header">
-            <div>
-                <div class="card-title">لیست کانفیگ‌ها</div>
-                <div class="card-sub">مدیریت کامل کانفیگ‌ها مثل 3x-ui، با ظاهر پاسارگاد</div>
-            </div>
-            <button class="btn btn-outline" data-page="create-config">کانفیگ جدید</button>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:6px;">
+          <button type="submit" class="btn"><i class="fas fa-save"></i> ذخیره</button>
+          <button type="button" class="btn btn-outline" id="closeClientModal">انصراف</button>
         </div>
-        <div class="table-wrap">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>کاربر</th>
-                        <th>پروتکل</th>
-                        <th>پورت</th>
-                        <th>هاست / ساب‌دامین</th>
-                        <th>وضعیت</th>
-                        <th>ترافیک</th>
-                        <th>انقضا</th>
-                        <th>عملیات</th>
-                    </tr>
-                </thead>
-                <tbody id="configsTableBody">
-                    <tr>
-                        <td>user1</td>
-                        <td><span class="badge badge-proto">VLESS</span></td>
-                        <td>443</td>
-                        <td>sub1.example.com</td>
-                        <td><span class="badge badge-active">فعال</span></td>
-                        <td>120 GB</td>
-                        <td>140 روز</td>
-                        <td>
-                            <div class="row-actions">
-                                <span class="link">ویرایش</span>
-                                <span class="link">کپی لینک</span>
-                                <span class="link">حذف</span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>test-reality</td>
-                        <td><span class="badge badge-proto">VLESS Reality</span></td>
-                        <td>443</td>
-                        <td>cdn.example.com</td>
-                        <td><span class="badge badge-pending">در انتظار</span></td>
-                        <td>50 GB</td>
-                        <td>30 روز</td>
-                        <td>
-                            <div class="row-actions">
-                                <span class="link">فعال‌سازی</span>
-                                <span class="link">حذف</span>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
+      </form>
+    </div>
+  </div>
 
-    <!-- SUBS PAGE -->
-    <section class="page glass card" id="page-subs">
-        <div class="card-header">
-            <div>
-                <div class="card-title">لینک‌های ساب (Subscription)</div>
-                <div class="card-sub">ساخت و مدیریت لینک ساب برای کاربران</div>
-            </div>
-            <button class="btn btn-outline">ساخت لینک ساب جدید</button>
-        </div>
-        <div class="table-wrap">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>کاربر</th>
-                        <th>لینک ساب</th>
-                        <th>وضعیت</th>
-                        <th>عملیات</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>vip-user</td>
-                        <td>https://example.com/sub/vip-user</td>
-                        <td><span class="badge badge-active">فعال</span></td>
-                        <td>
-                            <div class="row-actions">
-                                <span class="link">کپی</span>
-                                <span class="link">غیرفعال</span>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
+  <!-- ==============================================================
+  JAVASCRIPT
+  ============================================================== -->
+  <script>
+    (function() {
+      'use strict';
 
-    <!-- CREATE CONFIG PAGE -->
-    <section class="page glass card" id="page-create-config">
-        <div class="card-header">
-            <div>
-                <div class="card-title">ساخت کانفیگ جدید</div>
-                <div class="card-sub">فرم کامل شبیه 3x-ui، با ظاهر طلایی پاسارگاد</div>
-            </div>
-        </div>
-
-        <form id="createConfigForm">
-            <div class="form-grid">
-                <div class="form-group">
-                    <label class="form-label">نام کاربر</label>
-                    <input class="form-input" name="username" required placeholder="مثلاً: my-user">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">پروتکل</label>
-                    <select class="form-select" name="protocol">
-                        <option value="vless">VLESS</option>
-                        <option value="vmess">VMESS</option>
-                        <option value="trojan">TROJAN</option>
-                        <option value="vless-reality">VLESS Reality</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">پورت</label>
-                    <input class="form-input" name="port" type="number" value="443">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">هاست / ساب‌دامین</label>
-                    <input class="form-input" name="host" placeholder="مثلاً: cdn.example.com">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">حجم (GB)</label>
-                    <input class="form-input" name="traffic" type="number" value="100">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">مدت اعتبار (روز)</label>
-                    <input class="form-input" name="days" type="number" value="30">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">توضیحات</label>
-                    <textarea class="form-textarea" name="note" placeholder="مثلاً: کاربر VIP، فقط برای تست"></textarea>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">فعال باشد؟</label>
-                    <select class="form-select" name="active">
-                        <option value="true">بله</option>
-                        <option value="false">خیر</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-footer">
-                <button type="reset" class="btn btn-outline">پاک کردن</button>
-                <button type="submit" class="btn btn-primary">ساخت کانفیگ</button>
-            </div>
-            <div class="form-hint" id="createResult"></div>
-        </form>
-    </section>
-
-    <!-- SETTINGS PAGE -->
-    <section class="page glass card" id="page-settings">
-        <div class="card-header">
-            <div>
-                <div class="card-title">تنظیمات پنل پاسارگاد</div>
-                <div class="card-sub">تنظیمات عمومی، API، ساب‌دامین‌ها</div>
-            </div>
-        </div>
-        <div class="form-grid">
-            <div class="form-group">
-                <label class="form-label">آدرس API بک‌اند</label>
-                <input class="form-input" id="backendUrl" placeholder="مثلاً: https://sox-ui-railway-production.up.railway.app/api">
-            </div>
-            <div class="form-group">
-                <label class="form-label">ساب‌دامین پیش‌فرض</label>
-                <input class="form-input" id="defaultSub" placeholder="sub.example.com">
-            </div>
-            <div class="form-group">
-                <label class="form-label">حداکثر ترافیک پیش‌فرض (GB)</label>
-                <input class="form-input" id="defaultTraffic" type="number" value="100">
-            </div>
-            <div class="form-group">
-                <label class="form-label">حداکثر مدت اعتبار پیش‌فرض (روز)</label>
-                <input class="form-input" id="defaultDays" type="number" value="30">
-            </div>
-        </div>
-        <div class="form-footer">
-            <button class="btn btn-primary" id="saveSettings">ذخیره تنظیمات</button>
-        </div>
-        <div class="form-hint" id="settingsResult"></div>
-    </section>
-
-    <!-- LOGS PAGE -->
-    <section class="page glass card" id="page-logs">
-        <div class="card-header">
-            <div>
-                <div class="card-title">لاگ‌ها</div>
-                <div class="card-sub">آخرین عملیات انجام شده روی سرور و کانفیگ‌ها</div>
-            </div>
-        </div>
-        <div class="logs-box">
-[INFO] Pasargad Panel God Mode راه‌اندازی شد.
-[INFO] کانفیگ جدید برای user1 ساخته شد.
-[INFO] لینک ساب vip-user ایجاد شد.
-[WARN] کانفیگ test-expired منقضی شده است.
-[INFO] تنظیمات پنل ذخیره شد.
-        </div>
-    </section>
-</main>
-
-<script>
-// سوئیچ صفحات
-const navLinks = document.querySelectorAll('.nav-link');
-const pages = document.querySelectorAll('.page');
-
-function showPage(pageId) {
-    pages.forEach(p => p.classList.remove('active'));
-    const page = document.getElementById('page-' + pageId);
-    if (page) page.classList.add('active');
-
-    navLinks.forEach(l => l.classList.remove('active'));
-    navLinks.forEach(l => {
-        if (l.dataset.page === pageId) l.classList.add('active');
-    });
-}
-
-navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        showPage(link.dataset.page);
-    });
-});
-
-// دکمه‌هایی که data-page دارند
-document.querySelectorAll('[data-page]').forEach(btn => {
-    btn.addEventListener('click', () => {
-        const page = btn.getAttribute('data-page');
-        if (page) showPage(page);
-    });
-});
-
-// فرم ساخت کانفیگ کامل
-const createForm = document.getElementById('createConfigForm');
-const createResult = document.getElementById('createResult');
-
-createForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const formData = new FormData(createForm);
-    const data = Object.fromEntries(formData.entries());
-
-    const backendUrl = document.getElementById('backendUrl').value;
-    if (!backendUrl) {
-        createResult.textContent = 'اول آدرس API رو در تنظیمات پنل وارد کن.';
-        return;
-    }
-
-    fetch(backendUrl + "/configs", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-    })
-        .then(r => r.json())
-        .then(res => {
-            createResult.textContent = 'کانفیگ ساخته شد: ' + (res.config?.link || 'بدون لینک');
-        })
-        .catch(() => {
-            createResult.textContent = 'خطا در اتصال به API.';
+      // ==============================================================
+      // HELPERS
+      // ==============================================================
+      function genUUID() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+          const r = Math.random() * 16 | 0;
+          const v = c === 'x' ? r : (r & 0x3 | 0x8);
+          return v.toString(16);
         });
-});
+      }
 
-// تنظیمات پنل
-const saveSettingsBtn = document.getElementById('saveSettings');
-const settingsResult = document.getElementById('settingsResult');
+      function b64Encode(str) {
+        try { return btoa(unescape(encodeURIComponent(str))); } catch (_) { return ''; }
+      }
 
-saveSettingsBtn.addEventListener('click', () => {
-    const backendUrl = document.getElementById('backendUrl').value;
-    const defaultSub = document.getElementById('defaultSub').value;
-    const defaultTraffic = document.getElementById('defaultTraffic').value;
-    const defaultDays = document.getElementById('defaultDays').value;
+      function formatDate(d) {
+        if (!d) return 'نامحدود';
+        const dt = new Date(d);
+        return dt.toLocaleDateString('fa-IR', { year: 'numeric', month: '2-digit', day: '2-digit' });
+      }
 
-    const settings = { backendUrl, defaultSub, defaultTraffic, defaultDays };
-    localStorage.setItem('pasargadSettings', JSON.stringify(settings));
-    settingsResult.textContent = 'تنظیمات ذخیره شد.';
-});
+      // ==============================================================
+      // STORAGE
+      // ==============================================================
+      const KEYS = { inbounds: 'xui_inbounds', clients: 'xui_clients', settings: 'xui_settings' };
 
-// تم (دمو)
-const themeToggle = document.getElementById('themeToggle');
-themeToggle.addEventListener('click', () => {
-    alert('فعلاً تم تیره طلایی پاسارگاد فعاله؛ بعداً می‌تونی تم روشن و رنگی هم اضافه کنی 😉');
-});
-</script>
+      function getData(key) {
+        try { return JSON.parse(localStorage.getItem(key)) || []; } catch (_) { return []; }
+      }
+
+      function setData(key, data) {
+        localStorage.setItem(key, JSON.stringify(data));
+      }
+
+      // ==============================================================
+      // TOAST
+      // ==============================================================
+      const toastEl = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMsg');
+      let toastTimer;
+
+      function showToast(msg, icon = 'fa-check-circle') {
+        toastMsg.textContent = msg;
+        toastEl.querySelector('i').className = `fas ${icon}`;
+        toastEl.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2800);
+      }
+
+      // ==============================================================
+      // LOGIN
+      // ==============================================================
+      const loginPage = document.getElementById('loginPage');
+      const app = document.getElementById('app');
+      const loginError = document.getElementById('loginError');
+
+      document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const user = document.getElementById('loginUsername').value.trim();
+        const pass = document.getElementById('loginPassword').value.trim();
+        if (user === 'admin' && pass === 'admin') {
+          loginPage.style.display = 'none';
+          app.classList.add('show');
+          initApp();
+        } else {
+          loginError.style.display = 'block';
+        }
+      });
+
+      document.getElementById('logoutBtn').addEventListener('click', function() {
+        app.classList.remove('show');
+        loginPage.style.display = 'flex';
+        document.getElementById('loginPassword').value = '';
+        loginError.style.display = 'none';
+      });
+
+      // ==============================================================
+      // RENDER: INBOUNDS
+      // ==============================================================
+      function renderInbounds() {
+        const inbounds = getData(KEYS.inbounds);
+        const tbody = document.getElementById('inboundTableBody');
+        document.getElementById('inboundCount').textContent = inbounds.length;
+        if (inbounds.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="6" class="empty-state">هیچ اینباندی وجود ندارد</td></tr>';
+          return;
+        }
+        let html = '';
+        inbounds.forEach((inb, idx) => {
+          const uuidShort = inb.uuid ? inb.uuid.slice(0, 8) + '…' : '—';
+          html += `<tr>
+            <td>${idx+1}</td>
+            <td><span class="badge">${inb.port || '—'}</span></td>
+            <td><span class="badge ws">${inb.protocol || 'vmess'}</span></td>
+            <td>${uuidShort}</td>
+            <td>${inb.network || 'ws'}</td>
+            <td>
+              <button class="btn-icon" data-action="copy" data-idx="${idx}" title="کپی لینک"><i class="fas fa-copy"></i></button>
+              <button class="btn-icon" data-action="edit" data-idx="${idx}" title="ویرایش"><i class="fas fa-edit"></i></button>
+              <button class="btn-icon" data-action="delete" data-idx="${idx}" title="حذف" style="color:#f5576c;"><i class="fas fa-trash"></i></button>
+            </td>
+          </tr>`;
+        });
+        tbody.innerHTML = html;
+
+        tbody.querySelectorAll('[data-action="copy"]').forEach(b => b.addEventListener('click', function() {
+          const idx = parseInt(this.dataset.idx);
+          copyInboundLink(idx);
+        }));
+        tbody.querySelectorAll('[data-action="edit"]').forEach(b => b.addEventListener('click', function() {
+          const idx = parseInt(this.dataset.idx);
+          openInboundModal(idx);
+        }));
+        tbody.querySelectorAll('[data-action="delete"]').forEach(b => b.addEventListener('click', function() {
+          const idx = parseInt(this.dataset.idx);
+          if (confirm('این اینباند حذف شود؟')) {
+            let inbounds = getData(KEYS.inbounds);
+            inbounds.splice(idx, 1);
+            setData(KEYS.inbounds, inbounds);
+            renderInbounds();
+            updateStats();
+            showToast('اینباند حذف شد', 'fa-trash-alt');
+          }
+        }));
+        updateStats();
+      }
+
+      // ==============================================================
+      // INBOUND CRUD
+      // ==============================================================
+      function openInboundModal(idx = -1) {
+        const modal = document.getElementById('inboundModal');
+        document.getElementById('editInboundIndex').value = idx;
+        document.getElementById('inboundModalTitle').textContent = idx === -1 ? 'افزودن اینباند' : 'ویرایش اینباند';
+
+        if (idx !== -1) {
+          const inbounds = getData(KEYS.inbounds);
+          const inb = inbounds[idx];
+          if (inb) {
+            document.getElementById('inbPort').value = inb.port || '';
+            document.getElementById('inbProtocol').value = inb.protocol || 'vmess';
+            document.getElementById('inbUuid').value = inb.uuid || '';
+            document.getElementById('inbAlterId').value = inb.alterId || 0;
+            document.getElementById('inbEncryption').value = inb.encryption || 'chacha20-poly1305';
+            document.getElementById('inbNetwork').value = inb.network || 'ws';
+            document.getElementById('inbPath').value = inb.path || '/';
+          }
+        } else {
+          document.getElementById('inbUuid').value = genUUID();
+          document.getElementById('inbPort').value = 443;
+          document.getElementById('inbNetwork').value = 'ws';
+          document.getElementById('inbPath').value = '/';
+        }
+        modal.classList.add('show');
+      }
+
+      document.getElementById('addInboundBtn').addEventListener('click', () => openInboundModal(-1));
+      document.getElementById('closeInboundModal').addEventListener('click', () => document.getElementById('inboundModal')
+        .classList.remove('show'));
+      document.getElementById('genUuidBtn').addEventListener('click', () => document.getElementById('inbUuid').value = genUUID());
+
+      document.getElementById('inboundForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const idx = parseInt(document.getElementById('editInboundIndex').value);
+        const inb = {
+          port: parseInt(document.getElementById('inbPort').value) || 443,
+          protocol: document.getElementById('inbProtocol').value,
+          uuid: document.getElementById('inbUuid').value.trim() || genUUID(),
+          alterId: parseInt(document.getElementById('inbAlterId').value) || 0,
+          encryption: document.getElementById('inbEncryption').value,
+          network: document.getElementById('inbNetwork').value,
+          path: document.getElementById('inbPath').value.trim() || '/',
+        };
+        let inbounds = getData(KEYS.inbounds);
+        if (idx === -1) inbounds.push(inb);
+        else inbounds[idx] = inb;
+        setData(KEYS.inbounds, inbounds);
+        document.getElementById('inboundModal').classList.remove('show');
+        renderInbounds();
+        showToast(idx === -1 ? 'اینباند افزوده شد' : 'اینباند ویرایش شد', 'fa-check');
+      });
+
+      // ==============================================================
+      // COPY LINK
+      // ==============================================================
+      function buildLink(inb) {
+        const { port, protocol, uuid, alterId, encryption, network, path } = inb;
+        const addr = 'localhost';
+        if (protocol === 'vmess') {
+          const obj = { v: '2', ps: 'xui', add: addr, port: port, id: uuid, aid: alterId, net: network, type: 'none',
+            host: '', path: path, tls: '', sni: '', alpn: '', fp: '', scy: encryption };
+          return 'vmess://' + b64Encode(JSON.stringify(obj));
+        } else if (protocol === 'vless') {
+          return `vless://${uuid}@${addr}:${port}?encryption=none&type=${network}&path=${encodeURIComponent(path)}#xui`;
+        } else if (protocol === 'trojan') {
+          return `trojan://${uuid}@${addr}:${port}?type=${network}&path=${encodeURIComponent(path)}#xui`;
+        }
+        return '';
+      }
+
+      function copyInboundLink(idx) {
+        const inbounds = getData(KEYS.inbounds);
+        const inb = inbounds[idx];
+        if (!inb) return showToast('اینباند یافت نشد', 'fa-exclamation-triangle');
+        const link = buildLink(inb);
+        if (!link) return showToast('لینک تولید نشد', 'fa-exclamation-triangle');
+        navigator.clipboard.writeText(link).then(() => showToast('لینک کپی شد!', 'fa-copy'))
+          .catch(() => {
+            const ta = document.createElement('textarea');
+            ta.value = link;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            showToast('لینک کپی شد!', 'fa-copy');
+          });
+      }
+
+      // ==============================================================
+      // RENDER: CLIENTS
+      // ==============================================================
+      function renderClients() {
+        const clients = getData(KEYS.clients);
+        const tbody = document.getElementById('clientTableBody');
+        document.getElementById('clientCount').textContent = clients.length;
+        if (clients.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="6" class="empty-state">هیچ کاربری ثبت نشده است</td></tr>';
+          return;
+        }
+        let html = '';
+        clients.forEach((cli, idx) => {
+          html += `<tr>
+            <td>${idx+1}</td>
+            <td>${cli.username || '—'}</td>
+            <td>${cli.email || '—'}</td>
+            <td>${formatDate(cli.expiry)}</td>
+            <td>${cli.traffic || 'نامحدود'}</td>
+            <td><button class="btn-icon" data-action="del-client" data-idx="${idx}" style="color:#f5576c;"><i class="fas fa-trash"></i></button></td>
+          </tr>`;
+        });
+        tbody.innerHTML = html;
+        tbody.querySelectorAll('[data-action="del-client"]').forEach(b => b.addEventListener('click', function() {
+          const idx = parseInt(this.dataset.idx);
+          if (confirm('کاربر حذف شود؟')) {
+            let clients = getData(KEYS.clients);
+            clients.splice(idx, 1);
+            setData(KEYS.clients, clients);
+            renderClients();
+            updateStats();
+            showToast('کاربر حذف شد', 'fa-trash-alt');
+          }
+        }));
+        updateStats();
+      }
+
+      document.getElementById('addClientBtn').addEventListener('click', () => document.getElementById('clientModal').classList
+        .add('show'));
+      document.getElementById('closeClientModal').addEventListener('click', () => document.getElementById('clientModal')
+        .classList.remove('show'));
+
+      document.getElementById('clientForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const username = document.getElementById('cliUsername').value.trim();
+        if (!username) return showToast('نام کاربری الزامی است', 'fa-exclamation-triangle');
+        const cli = {
+          username: username,
+          email: document.getElementById('cliEmail').value.trim(),
+          expiry: document.getElementById('cliExpiry').value || '',
+          traffic: parseFloat(document.getElementById('cliTraffic').value) || 0,
+        };
+        let clients = getData(KEYS.clients);
+        clients.push(cli);
+        setData(KEYS.clients, clients);
+        document.getElementById('clientModal').classList.remove('show');
+        document.getElementById('clientForm').reset();
+        renderClients();
+        showToast('کاربر افزوده شد', 'fa-check');
+      });
+
+      // ==============================================================
+      // STATS & CHARTS
+      // ==============================================================
+      function updateStats() {
+        const inbounds = getData(KEYS.inbounds);
+        const clients = getData(KEYS.clients);
+        document.getElementById('statInbounds').textContent = inbounds.length;
+        document.getElementById('statClients').textContent = clients.length;
+        document.getElementById('statOnline').textContent = Math.floor(Math.random() * 10 + 2);
+        document.getElementById('statTraffic').textContent = (Math.random() * 6 + 1).toFixed(1) + ' GB';
+      }
+
+      let trafficChart;
+
+      function initChart() {
+        const ctx = document.getElementById('trafficChart').getContext('2d');
+        const labels = [];
+        const values = [];
+        for (let i = 6; i >= 0; i--) {
+          const d = new Date();
+          d.setDate(d.getDate() - i);
+          labels.push(d.toLocaleDateString('fa-IR', { weekday: 'short' }));
+          values.push(Math.floor(Math.random() * 20 + 3));
+        }
+        trafficChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels,
+            datasets: [{ label: 'GB', data: values, backgroundColor: 'rgba(247,151,30,0.5)',
+              borderColor: '#f7971e', borderWidth: 2, borderRadius: 4 }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+              y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.04)' },
+                ticks: { color: 'rgba(255,255,255,0.4)' } },
+              x: { grid: { display: false }, ticks: { color: 'rgba(255,255,255,0.4)' } }
+            }
+          }
+        });
+      }
+
+      // ==============================================================
+      // NAVIGATION
+      // ==============================================================
+      document.querySelectorAll('.nav-item').forEach(btn => {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          const page = this.dataset.page;
+          document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+          document.getElementById('page-' + page).classList.add('active');
+        });
+      });
+
+      // ==============================================================
+      // SETTINGS
+      // ==============================================================
+      function applyTheme(theme) {
+        const body = document.body;
+        if (theme === 'light') {
+          body.style.background = '#eef0f5';
+          body.style.color = '#1a1a2e';
+          document.querySelectorAll('.card, .stat-card, .modal-box, .sidebar').forEach(el => {
+            el.style.background = 'rgba(255,255,255,0.8)';
+            el.style.borderColor = 'rgba(0,0,0,0.04)';
+          });
+          document.querySelectorAll('.form-group input, .form-group select').forEach(el => {
+            el.style.background = 'rgba(0,0,0,0.04)';
+            el.style.color = '#1a1a2e';
+          });
+          document.querySelector('.sidebar').style.background = 'rgba(240,242,247,0.95)';
+        } else {
+          body.style.background = '#0b0b1a';
+          body.style.color = '#eaeef2';
+          document.querySelectorAll('.card, .stat-card, .modal-box, .sidebar').forEach(el => {
+            el.style.background = 'rgba(255,255,255,0.03)';
+            el.style.borderColor = 'rgba(255,255,255,0.04)';
+          });
+          document.querySelectorAll('.form-group input, .form-group select').forEach(el => {
+            el.style.background = 'rgba(255,255,255,0.05)';
+            el.style.color = '#fff';
+          });
+          document.querySelector('.sidebar').style.background = 'rgba(20,20,40,0.92)';
+        }
+      }
+
+      document.getElementById('saveSettingsBtn').addEventListener('click', function() {
+        const theme = document.getElementById('settingsTheme').value;
+        setData(KEYS.settings, { theme });
+        applyTheme(theme);
+        showToast('تنظیمات ذخیره شد', 'fa-check');
+      });
+
+      // ==============================================================
+      // EXPORT / IMPORT / RESET
+      // ==============================================================
+      document.getElementById('exportBtn').addEventListener('click', function() {
+        const data = {};
+        Object.keys(KEYS).forEach(k => { data[k] = getData(KEYS[k]); });
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'xui_backup.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast('خروجی گرفته شد', 'fa-file-export');
+      });
+
+      document.getElementById('importBtn').addEventListener('click', () => document.getElementById('importFileInput').click());
+      document.getElementById('importFileInput').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(ev) {
+          try {
+            const data = JSON.parse(ev.target.result);
+            Object.keys(KEYS).forEach(k => { if (data[k]) setData(KEYS[k], data[k]); });
+            renderInbounds();
+            renderClients();
+            showToast('داده‌ها وارد شدند', 'fa-file-import');
+          } catch (_) { showToast('فایل نامعتبر', 'fa-exclamation-triangle'); }
+        };
+        reader.readAsText(file);
+        this.value = '';
+      });
+
+      document.getElementById('resetBtn').addEventListener('click', function() {
+        if (confirm('⚠️ تمام داده‌ها پاک می‌شوند. ادامه؟')) {
+          Object.values(KEYS).forEach(k => localStorage.removeItem(k));
+          renderInbounds();
+          renderClients();
+          showToast('همه داده‌ها ریست شدند', 'fa-exclamation-triangle');
+        }
+      });
+
+      // ==============================================================
+      // INIT APP (called after login)
+      // ==============================================================
+      function initApp() {
+        const settings = getData(KEYS.settings);
+        if (settings && settings.theme) {
+          document.getElementById('settingsTheme').value = settings.theme;
+          applyTheme(settings.theme);
+        }
+        document.getElementById('todayDate').textContent = new Date().toLocaleDateString('fa-IR', {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+        const d = new Date();
+        d.setMonth(d.getMonth() + 3);
+        document.getElementById('cliExpiry').value = d.toISOString().split('T')[0];
+
+        renderInbounds();
+        renderClients();
+        initChart();
+        updateStats();
+
+        // Add demo inbound if empty
+        if (getData(KEYS.inbounds).length === 0) {
+          let inbounds = getData(KEYS.inbounds);
+          inbounds.push({ port: 443, protocol: 'vmess', uuid: genUUID(), alterId: 0,
+            encryption: 'chacha20-poly1305', network: 'ws', path: '/' });
+          setData(KEYS.inbounds, inbounds);
+          renderInbounds();
+        }
+      }
+
+      // ==============================================================
+      // PREVENT DEFAULT ENTER ON LOGIN
+      // ==============================================================
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          const active = document.activeElement;
+          if (active && (active.id === 'loginUsername' || active.id === 'loginPassword')) {
+            document.getElementById('loginForm').dispatchEvent(new Event('submit'));
+          }
+        }
+      });
+
+    })();
+  </script>
+
 </body>
 </html>
