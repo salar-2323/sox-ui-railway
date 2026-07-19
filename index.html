@@ -2,24 +2,26 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>3x-UI Style Panel — Full Options</title>
+<title>Pasargad Panel — SOX-UI</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
 :root {
     --bg: #020617;
-    --bg-soft: #0b1120;
-    --card: #0f172a;
+    --bg-soft: #050816;
+    --card: #0b1120;
+    --card-soft: #0f172a;
     --border: #1f2937;
-    --accent: #38bdf8;
-    --accent-soft: rgba(56,189,248,0.18);
+    --accent: #fbbf24; /* طلایی پاسارگاد */
+    --accent-2: #38bdf8;
+    --accent-soft: rgba(251,191,36,0.16);
     --text: #e5e7eb;
     --muted: #9ca3af;
     --danger: #ef4444;
     --success: #22c55e;
     --warning: #facc15;
-    --radius: 12px;
-    --blur: 14px;
+    --radius: 18px;
+    --blur: 18px;
 }
 
 * {
@@ -30,114 +32,171 @@
 }
 
 body {
-    background: radial-gradient(circle at top, #1f2937 0, #020617 45%, #000 100%);
-    color: var(--text);
     min-height: 100vh;
+    background:
+        radial-gradient(circle at top left, #1f2937 0, #020617 40%, #000 100%),
+        radial-gradient(circle at bottom right, #0f172a 0, #020617 40%, #000 100%);
+    color: var(--text);
     display: flex;
+}
+
+/* GLASS EFFECT */
+.glass {
+    background: linear-gradient(135deg, rgba(15,23,42,0.92), rgba(15,23,42,0.78));
+    border-radius: var(--radius);
+    border: 1px solid rgba(148,163,184,0.18);
+    box-shadow:
+        0 24px 60px rgba(15,23,42,0.9),
+        0 0 0 1px rgba(15,23,42,0.8);
+    backdrop-filter: blur(var(--blur));
 }
 
 /* SIDEBAR */
 .sidebar {
-    width: 260px;
-    background: linear-gradient(to bottom, #020617, #020617 40%, #000 100%);
-    border-right: 1px solid #0f172a;
-    padding: 18px 14px;
+    width: 270px;
+    padding: 20px 16px;
     display: flex;
     flex-direction: column;
+    gap: 16px;
 }
 
 .brand {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 22px;
+    gap: 12px;
+}
+
+.brand-logo-wrap {
+    position: relative;
+}
+
+.brand-orbit {
+    position: absolute;
+    inset: -6px;
+    border-radius: 999px;
+    border: 1px dashed rgba(251,191,36,0.4);
+    opacity: 0.7;
 }
 
 .brand-logo {
-    width: 34px;
-    height: 34px;
-    border-radius: 12px;
-    background: radial-gradient(circle at 30% 0, #38bdf8 0, #0ea5e9 40%, #0f172a 100%);
+    width: 40px;
+    height: 40px;
+    border-radius: 14px;
+    background:
+        radial-gradient(circle at 20% 0, #fbbf24 0, #f59e0b 40%, #0f172a 100%);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 700;
+    font-weight: 800;
     font-size: 18px;
-    color: #0b1120;
-    box-shadow: 0 0 18px rgba(56,189,248,0.6);
+    color: #020617;
+    box-shadow:
+        0 0 24px rgba(251,191,36,0.8),
+        0 0 0 1px rgba(15,23,42,0.9);
 }
 
-.brand-title {
-    font-size: 15px;
+.brand-text-main {
+    font-size: 16px;
     font-weight: 600;
 }
 
-.brand-sub {
+.brand-text-sub {
     font-size: 11px;
     color: var(--muted);
 }
 
+.brand-badge {
+    margin-top: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: rgba(251,191,36,0.08);
+    border: 1px solid rgba(251,191,36,0.35);
+    font-size: 10px;
+    color: var(--accent);
+}
+
+/* NAV */
 .nav-section-title {
     font-size: 11px;
     color: var(--muted);
-    margin: 14px 4px 6px;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.12em;
+    margin: 10px 4px 6px;
 }
 
 .nav-list {
     list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
 .nav-link {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 9px 10px;
-    border-radius: 9px;
+    gap: 10px;
+    padding: 9px 11px;
+    border-radius: 11px;
     color: var(--muted);
     font-size: 13px;
     cursor: pointer;
     transition: 0.18s;
-    margin-bottom: 4px;
+    position: relative;
+}
+
+.nav-link::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(circle at left, rgba(251,191,36,0.18), transparent 55%);
+    opacity: 0;
+    transition: 0.18s;
+}
+
+.nav-link:hover::before {
+    opacity: 1;
 }
 
 .nav-link:hover {
-    background: rgba(15,23,42,0.9);
     color: var(--text);
 }
 
 .nav-link.active {
-    background: var(--accent-soft);
+    background: linear-gradient(135deg, rgba(251,191,36,0.18), rgba(56,189,248,0.16));
     color: var(--accent);
-    border: 1px solid rgba(56,189,248,0.5);
+    border: 1px solid rgba(251,191,36,0.5);
 }
 
 .nav-icon {
-    width: 18px;
-    height: 18px;
-    border-radius: 6px;
-    border: 1px solid #1f2937;
+    width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    border: 1px solid rgba(31,41,55,0.9);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 11px;
+    font-size: 12px;
 }
 
-.sidebar-footer {
+.nav-footer {
     margin-top: auto;
     font-size: 11px;
     color: var(--muted);
-    border-top: 1px solid #0f172a;
     padding-top: 10px;
+    border-top: 1px solid rgba(15,23,42,0.9);
 }
 
 /* MAIN */
 .main {
     flex: 1;
+    padding: 20px 22px;
     display: flex;
     flex-direction: column;
-    padding: 18px 22px;
+    gap: 14px;
 }
 
 /* HEADER */
@@ -145,18 +204,29 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 16px;
 }
 
 .header-left {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
 }
 
 .header-title {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.header-title span.accent {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: rgba(251,191,36,0.12);
+    border: 1px solid rgba(251,191,36,0.4);
+    color: var(--accent);
 }
 
 .header-sub {
@@ -184,20 +254,24 @@ body {
 }
 
 .btn-primary {
-    background: linear-gradient(to right, #0ea5e9, #38bdf8);
-    color: #0b1120;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: #020617;
     font-weight: 500;
-    box-shadow: 0 0 16px rgba(56,189,248,0.5);
+    box-shadow: 0 0 22px rgba(251,191,36,0.7);
+}
+
+.btn-primary:hover {
+    filter: brightness(1.05);
 }
 
 .btn-outline {
-    background: transparent;
-    border: 1px solid #1f2937;
+    background: rgba(15,23,42,0.9);
+    border: 1px solid rgba(31,41,55,0.9);
     color: var(--muted);
 }
 
 .btn-outline:hover {
-    border-color: #38bdf8;
+    border-color: var(--accent);
     color: var(--accent);
 }
 
@@ -205,18 +279,19 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 6px 10px;
+    padding: 6px 11px;
     border-radius: 999px;
-    background: rgba(15,23,42,0.9);
-    border: 1px solid #1f2937;
+    background: rgba(15,23,42,0.95);
+    border: 1px solid rgba(31,41,55,0.9);
     font-size: 12px;
 }
 
 .user-avatar {
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
     border-radius: 999px;
-    background: radial-gradient(circle at 30% 0, #22c55e 0, #16a34a 40%, #0f172a 100%);
+    background:
+        radial-gradient(circle at 20% 0, #fbbf24 0, #f59e0b 40%, #0f172a 100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -229,15 +304,11 @@ body {
     display: grid;
     grid-template-columns: 2fr 1.4fr;
     gap: 14px;
-    margin-bottom: 14px;
 }
 
+/* CARD */
 .card {
-    background: rgba(15,23,42,0.95);
-    border-radius: 14px;
-    border: 1px solid #1f2937;
     padding: 14px 14px 12px;
-    box-shadow: 0 18px 40px rgba(15,23,42,0.9);
 }
 
 .card-header {
@@ -259,17 +330,17 @@ body {
 
 /* STATS */
 .stats-row {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 10px;
-    margin-top: 6px;
+    margin-top: 8px;
 }
 
 .stat-pill {
-    flex: 1;
-    padding: 8px 9px;
-    border-radius: 10px;
-    background: rgba(15,23,42,0.9);
-    border: 1px solid #111827;
+    padding: 9px 10px;
+    border-radius: 12px;
+    background: radial-gradient(circle at top, rgba(15,23,42,0.95), rgba(15,23,42,0.85));
+    border: 1px solid rgba(31,41,55,0.9);
     display: flex;
     flex-direction: column;
     gap: 4px;
@@ -281,13 +352,13 @@ body {
 }
 
 .stat-value {
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 15px;
+    font-weight: 600;
 }
 
 .stat-tag {
     font-size: 10px;
-    padding: 2px 6px;
+    padding: 2px 7px;
     border-radius: 999px;
     background: rgba(34,197,94,0.12);
     color: var(--success);
@@ -295,42 +366,52 @@ body {
 }
 
 /* TABLE */
+.table-wrap {
+    margin-top: 6px;
+    border-radius: 12px;
+    border: 1px solid rgba(15,23,42,0.9);
+    overflow: hidden;
+}
+
 .table {
     width: 100%;
     border-collapse: collapse;
     font-size: 12px;
-    margin-top: 6px;
 }
 
 .table th,
 .table td {
-    padding: 6px 4px;
+    padding: 7px 8px;
     text-align: right;
 }
 
 .table th {
     color: var(--muted);
     font-weight: 500;
-    border-bottom: 1px solid #111827;
+    background: rgba(15,23,42,0.96);
 }
 
 .table tr {
-    border-bottom: 1px solid #020617;
+    border-bottom: 1px solid rgba(15,23,42,0.9);
+}
+
+.table tr:nth-child(even) {
+    background: rgba(15,23,42,0.85);
 }
 
 .table tr:hover {
-    background: rgba(15,23,42,0.7);
+    background: rgba(15,23,42,0.9);
 }
 
 .badge {
     font-size: 10px;
-    padding: 2px 6px;
+    padding: 2px 7px;
     border-radius: 999px;
-    border: 1px solid #1f2937;
+    border: 1px solid rgba(31,41,55,0.9);
 }
 
 .badge-proto {
-    color: var(--accent);
+    color: var(--accent-2);
     border-color: rgba(56,189,248,0.6);
 }
 
@@ -356,7 +437,7 @@ body {
 
 .link {
     font-size: 11px;
-    color: var(--accent);
+    color: var(--accent-2);
     cursor: pointer;
 }
 
@@ -386,25 +467,26 @@ body {
 .form-input,
 .form-select,
 .form-textarea {
-    background: rgba(15,23,42,0.9);
-    border-radius: 9px;
-    border: 1px solid #111827;
+    background: rgba(15,23,42,0.95);
+    border-radius: 10px;
+    border: 1px solid rgba(31,41,55,0.9);
     padding: 7px 9px;
     font-size: 12px;
     color: var(--text);
     outline: none;
-    transition: border-color 0.16s ease, box-shadow 0.16s ease;
+    transition: border-color 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
 }
 
 .form-input:focus,
 .form-select:focus,
 .form-textarea:focus {
-    border-color: #38bdf8;
-    box-shadow: 0 0 0 1px rgba(56,189,248,0.4);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px rgba(251,191,36,0.4);
+    background: rgba(15,23,42,0.98);
 }
 
 .form-textarea {
-    min-height: 60px;
+    min-height: 70px;
     resize: vertical;
 }
 
@@ -425,21 +507,55 @@ body {
 .page { display: none; }
 .page.active { display: block; }
 
-@media (max-width: 900px) {
+/* LOGS */
+.logs-box {
+    min-height: 150px;
+    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 11px;
+    background: radial-gradient(circle at top, rgba(15,23,42,0.96), rgba(15,23,42,0.9));
+    border-radius: 12px;
+    border: 1px solid rgba(31,41,55,0.9);
+    padding: 10px;
+    color: #9ca3af;
+    overflow: auto;
+}
+
+/* RESPONSIVE */
+@media (max-width: 980px) {
     .sidebar { display: none; }
     .grid-2 { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .header-right {
+        width: 100%;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
 }
 </style>
 </head>
 <body>
 
 <!-- SIDEBAR -->
-<aside class="sidebar">
+<aside class="sidebar glass">
     <div class="brand">
-        <div class="brand-logo">3X</div>
+        <div class="brand-logo-wrap">
+            <div class="brand-orbit"></div>
+            <div class="brand-logo">PG</div>
+        </div>
         <div>
-            <div class="brand-title">3x-UI Style Panel</div>
-            <div class="brand-sub">Reluy / V2Ray / Reality</div>
+            <div class="brand-text-main">Pasargad Panel</div>
+            <div class="brand-text-sub">SOX-UI / Reluy / Railway</div>
+            <div class="brand-badge">
+                <span>⚡ God Mode</span>
+                <span>طلایی پاسارگاد</span>
+            </div>
         </div>
     </div>
 
@@ -449,13 +565,14 @@ body {
         <li><div class="nav-link" data-page="users"><div class="nav-icon">👥</div><span>کاربران</span></div></li>
         <li><div class="nav-link" data-page="configs"><div class="nav-icon">📜</div><span>کانفیگ‌ها</span></div></li>
         <li><div class="nav-link" data-page="subs"><div class="nav-icon">🔗</div><span>لینک ساب</span></div></li>
+        <li><div class="nav-link" data-page="create-config"><div class="nav-icon">➕</div><span>ساخت کانفیگ</span></div></li>
         <li><div class="nav-link" data-page="settings"><div class="nav-icon">⚙️</div><span>تنظیمات</span></div></li>
         <li><div class="nav-link" data-page="logs"><div class="nav-icon">📄</div><span>لاگ‌ها</span></div></li>
     </ul>
 
-    <div class="sidebar-footer">
-        نسخه 1.0.0 — پنل شبیه 3x-ui  
-        <br>فرانت‌اند آماده اتصال به بک‌اند
+    <div class="nav-footer">
+        نسخه 1.0.0 — Pasargad Panel  
+        <br>فرانت‌اند آماده اتصال به بک‌اند Railway
     </div>
 </aside>
 
@@ -464,96 +581,61 @@ body {
     <!-- HEADER -->
     <header class="header">
         <div class="header-left">
-            <div class="header-title">پنل مدیریت Reluy / 3x-UI Style</div>
-            <div class="header-sub">همه‌چیز: کاربران، کانفیگ‌ها، ساب، لاگ، تنظیمات — آماده اتصال به API</div>
+            <div class="header-title">
+                پنل مدیریت پاسارگاد
+                <span class="accent">SOX-UI / Reluy / 3x-UI Style</span>
+            </div>
+            <div class="header-sub">
+                همه‌چیز زیر کنترل توست: کاربران، کانفیگ‌ها، ساب، لاگ، تنظیمات — با ظاهر طلایی و نئونی پاسارگاد.
+            </div>
         </div>
         <div class="header-right">
             <button class="btn btn-outline" id="themeToggle">تم</button>
             <button class="btn btn-primary" data-page="create-config">ساخت سریع کانفیگ</button>
             <div class="user-pill">
                 <div class="user-avatar">AD</div>
-                <span>ادمین</span>
+                <span>ادمین پاسارگاد</span>
             </div>
         </div>
     </header>
 
     <!-- DASHBOARD -->
-    <section class="page active" id="page-dashboard">
-        <div class="grid-2">
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title">آمار کلی سرور</div>
-                        <div class="card-sub">وضعیت کانفیگ‌ها، کاربران و ترافیک</div>
-                    </div>
-                </div>
-                <div class="stats-row">
-                    <div class="stat-pill">
-                        <div class="stat-label">کاربران فعال</div>
-                        <div class="stat-value" id="stat-users">24</div>
-                        <div class="stat-tag">در حال استفاده</div>
-                    </div>
-                    <div class="stat-pill">
-                        <div class="stat-label">کانفیگ‌های فعال</div>
-                        <div class="stat-value" id="stat-configs">38</div>
-                        <div class="stat-tag">بدون خطا</div>
-                    </div>
-                    <div class="stat-pill">
-                        <div class="stat-label">ترافیک امروز</div>
-                        <div class="stat-value" id="stat-traffic">92 GB</div>
-                        <div class="stat-tag">+18% نسبت به دیروز</div>
-                    </div>
-                </div>
+    <section class="page active glass card" id="page-dashboard">
+        <div class="card-header">
+            <div>
+                <div class="card-title">آمار کلی سرور</div>
+                <div class="card-sub">وضعیت کاربران، کانفیگ‌ها و ترافیک امروز</div>
             </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title">ساخت سریع کانفیگ تست</div>
-                        <div class="card-sub">برای کاربر جدید یا تست اتصال</div>
-                    </div>
-                </div>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label class="form-label">نام کاربر</label>
-                        <input class="form-input" id="quick-username" placeholder="مثلاً: test-user">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">پروتکل</label>
-                        <select class="form-select" id="quick-proto">
-                            <option value="vless">VLESS</option>
-                            <option value="vmess">VMESS</option>
-                            <option value="trojan">TROJAN</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">حجم (GB)</label>
-                        <input class="form-input" id="quick-traffic" type="number" value="50">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">مدت اعتبار (روز)</label>
-                        <input class="form-input" id="quick-days" type="number" value="30">
-                    </div>
-                </div>
-                <div class="form-footer">
-                    <button class="btn btn-outline" id="quickReset">ریست</button>
-                    <button class="btn btn-primary" id="quickCreate">ساخت کانفیگ</button>
-                </div>
-                <div class="form-hint" id="quickResult"></div>
+        </div>
+        <div class="stats-row">
+            <div class="stat-pill">
+                <div class="stat-label">کاربران فعال</div>
+                <div class="stat-value" id="stat-users">24</div>
+                <div class="stat-tag">در حال استفاده</div>
+            </div>
+            <div class="stat-pill">
+                <div class="stat-label">کانفیگ‌های فعال</div>
+                <div class="stat-value" id="stat-configs">38</div>
+                <div class="stat-tag">بدون خطا</div>
+            </div>
+            <div class="stat-pill">
+                <div class="stat-label">ترافیک امروز</div>
+                <div class="stat-value" id="stat-traffic">92 GB</div>
+                <div class="stat-tag">+18% نسبت به دیروز</div>
             </div>
         </div>
     </section>
 
     <!-- USERS PAGE -->
-    <section class="page" id="page-users">
-        <div class="card">
-            <div class="card-header">
-                <div>
-                    <div class="card-title">مدیریت کاربران</div>
-                    <div class="card-sub">لیست کاربران، وضعیت، حجم، تاریخ انقضا</div>
-                </div>
-                <button class="btn btn-outline">افزودن کاربر</button>
+    <section class="page glass card" id="page-users">
+        <div class="card-header">
+            <div>
+                <div class="card-title">مدیریت کاربران</div>
+                <div class="card-sub">لیست کاربران، وضعیت، حجم، تاریخ انقضا</div>
             </div>
+            <button class="btn btn-outline">افزودن کاربر</button>
+        </div>
+        <div class="table-wrap">
             <table class="table">
                 <thead>
                     <tr>
@@ -596,15 +678,15 @@ body {
     </section>
 
     <!-- CONFIGS PAGE -->
-    <section class="page" id="page-configs">
-        <div class="card">
-            <div class="card-header">
-                <div>
-                    <div class="card-title">لیست کانفیگ‌ها</div>
-                    <div class="card-sub">مدیریت کامل کانفیگ‌ها مثل 3x-ui</div>
-                </div>
-                <button class="btn btn-outline" data-page="create-config">کانفیگ جدید</button>
+    <section class="page glass card" id="page-configs">
+        <div class="card-header">
+            <div>
+                <div class="card-title">لیست کانفیگ‌ها</div>
+                <div class="card-sub">مدیریت کامل کانفیگ‌ها مثل 3x-ui، با ظاهر پاسارگاد</div>
             </div>
+            <button class="btn btn-outline" data-page="create-config">کانفیگ جدید</button>
+        </div>
+        <div class="table-wrap">
             <table class="table">
                 <thead>
                     <tr>
@@ -656,15 +738,15 @@ body {
     </section>
 
     <!-- SUBS PAGE -->
-    <section class="page" id="page-subs">
-        <div class="card">
-            <div class="card-header">
-                <div>
-                    <div class="card-title">لینک‌های ساب (Subscription)</div>
-                    <div class="card-sub">ساخت و مدیریت لینک ساب برای کاربران</div>
-                </div>
-                <button class="btn btn-outline">ساخت لینک ساب جدید</button>
+    <section class="page glass card" id="page-subs">
+        <div class="card-header">
+            <div>
+                <div class="card-title">لینک‌های ساب (Subscription)</div>
+                <div class="card-sub">ساخت و مدیریت لینک ساب برای کاربران</div>
             </div>
+            <button class="btn btn-outline">ساخت لینک ساب جدید</button>
+        </div>
+        <div class="table-wrap">
             <table class="table">
                 <thead>
                     <tr>
@@ -692,118 +774,112 @@ body {
     </section>
 
     <!-- CREATE CONFIG PAGE -->
-    <section class="page" id="page-create-config">
-        <div class="card">
-            <div class="card-header">
-                <div>
-                    <div class="card-title">ساخت کانفیگ جدید</div>
-                    <div class="card-sub">فرم کامل شبیه 3x-ui برای ساخت کانفیگ</div>
+    <section class="page glass card" id="page-create-config">
+        <div class="card-header">
+            <div>
+                <div class="card-title">ساخت کانفیگ جدید</div>
+                <div class="card-sub">فرم کامل شبیه 3x-ui، با ظاهر طلایی پاسارگاد</div>
+            </div>
+        </div>
+
+        <form id="createConfigForm">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label">نام کاربر</label>
+                    <input class="form-input" name="username" required placeholder="مثلاً: my-user">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">پروتکل</label>
+                    <select class="form-select" name="protocol">
+                        <option value="vless">VLESS</option>
+                        <option value="vmess">VMESS</option>
+                        <option value="trojan">TROJAN</option>
+                        <option value="vless-reality">VLESS Reality</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">پورت</label>
+                    <input class="form-input" name="port" type="number" value="443">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">هاست / ساب‌دامین</label>
+                    <input class="form-input" name="host" placeholder="مثلاً: cdn.example.com">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">حجم (GB)</label>
+                    <input class="form-input" name="traffic" type="number" value="100">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">مدت اعتبار (روز)</label>
+                    <input class="form-input" name="days" type="number" value="30">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">توضیحات</label>
+                    <textarea class="form-textarea" name="note" placeholder="مثلاً: کاربر VIP، فقط برای تست"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">فعال باشد؟</label>
+                    <select class="form-select" name="active">
+                        <option value="true">بله</option>
+                        <option value="false">خیر</option>
+                    </select>
                 </div>
             </div>
 
-            <form id="createConfigForm">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label class="form-label">نام کاربر</label>
-                        <input class="form-input" name="username" required placeholder="مثلاً: my-user">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">پروتکل</label>
-                        <select class="form-select" name="protocol">
-                            <option value="vless">VLESS</option>
-                            <option value="vmess">VMESS</option>
-                            <option value="trojan">TROJAN</option>
-                            <option value="vless-reality">VLESS Reality</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">پورت</label>
-                        <input class="form-input" name="port" type="number" value="443">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">هاست / ساب‌دامین</label>
-                        <input class="form-input" name="host" placeholder="مثلاً: cdn.example.com">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">حجم (GB)</label>
-                        <input class="form-input" name="traffic" type="number" value="100">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">مدت اعتبار (روز)</label>
-                        <input class="form-input" name="days" type="number" value="30">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">توضیحات</label>
-                        <textarea class="form-textarea" name="note" placeholder="مثلاً: کاربر VIP، فقط برای تست"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">فعال باشد؟</label>
-                        <select class="form-select" name="active">
-                            <option value="true">بله</option>
-                            <option value="false">خیر</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-footer">
-                    <button type="reset" class="btn btn-outline">پاک کردن</button>
-                    <button type="submit" class="btn btn-primary">ساخت کانفیگ</button>
-                </div>
-                <div class="form-hint" id="createResult"></div>
-            </form>
-        </div>
+            <div class="form-footer">
+                <button type="reset" class="btn btn-outline">پاک کردن</button>
+                <button type="submit" class="btn btn-primary">ساخت کانفیگ</button>
+            </div>
+            <div class="form-hint" id="createResult"></div>
+        </form>
     </section>
 
     <!-- SETTINGS PAGE -->
-    <section class="page" id="page-settings">
-        <div class="card">
-            <div class="card-header">
-                <div>
-                    <div class="card-title">تنظیمات پنل</div>
-                    <div class="card-sub">تنظیمات عمومی، API، ساب‌دامین‌ها</div>
-                </div>
+    <section class="page glass card" id="page-settings">
+        <div class="card-header">
+            <div>
+                <div class="card-title">تنظیمات پنل پاسارگاد</div>
+                <div class="card-sub">تنظیمات عمومی، API، ساب‌دامین‌ها</div>
             </div>
-            <div class="form-grid">
-                <div class="form-group">
-                    <label class="form-label">آدرس API بک‌اند</label>
-                    <input class="form-input" id="backendUrl" placeholder="مثلاً: https://your-backend.up.railway.app/api">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">ساب‌دامین پیش‌فرض</label>
-                    <input class="form-input" id="defaultSub" placeholder="sub.example.com">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">حداکثر ترافیک پیش‌فرض (GB)</label>
-                    <input class="form-input" id="defaultTraffic" type="number" value="100">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">حداکثر مدت اعتبار پیش‌فرض (روز)</label>
-                    <input class="form-input" id="defaultDays" type="number" value="30">
-                </div>
-            </div>
-            <div class="form-footer">
-                <button class="btn btn-primary" id="saveSettings">ذخیره تنظیمات</button>
-            </div>
-            <div class="form-hint" id="settingsResult"></div>
         </div>
+        <div class="form-grid">
+            <div class="form-group">
+                <label class="form-label">آدرس API بک‌اند</label>
+                <input class="form-input" id="backendUrl" placeholder="مثلاً: https://sox-ui-railway-production.up.railway.app/api">
+            </div>
+            <div class="form-group">
+                <label class="form-label">ساب‌دامین پیش‌فرض</label>
+                <input class="form-input" id="defaultSub" placeholder="sub.example.com">
+            </div>
+            <div class="form-group">
+                <label class="form-label">حداکثر ترافیک پیش‌فرض (GB)</label>
+                <input class="form-input" id="defaultTraffic" type="number" value="100">
+            </div>
+            <div class="form-group">
+                <label class="form-label">حداکثر مدت اعتبار پیش‌فرض (روز)</label>
+                <input class="form-input" id="defaultDays" type="number" value="30">
+            </div>
+        </div>
+        <div class="form-footer">
+            <button class="btn btn-primary" id="saveSettings">ذخیره تنظیمات</button>
+        </div>
+        <div class="form-hint" id="settingsResult"></div>
     </section>
 
     <!-- LOGS PAGE -->
-    <section class="page" id="page-logs">
-        <div class="card">
-            <div class="card-header">
-                <div>
-                    <div class="card-title">لاگ‌ها</div>
-                    <div class="card-sub">آخرین عملیات انجام شده روی سرور و کانفیگ‌ها</div>
-                </div>
+    <section class="page glass card" id="page-logs">
+        <div class="card-header">
+            <div>
+                <div class="card-title">لاگ‌ها</div>
+                <div class="card-sub">آخرین عملیات انجام شده روی سرور و کانفیگ‌ها</div>
             </div>
-            <div class="form-textarea" style="min-height: 140px; font-family: monospace; font-size: 11px;">
-[INFO] پنل 3x-UI Style راه‌اندازی شد.
+        </div>
+        <div class="logs-box">
+[INFO] Pasargad Panel God Mode راه‌اندازی شد.
 [INFO] کانفیگ جدید برای user1 ساخته شد.
 [INFO] لینک ساب vip-user ایجاد شد.
 [WARN] کانفیگ test-expired منقضی شده است.
 [INFO] تنظیمات پنل ذخیره شد.
-            </div>
         </div>
     </section>
 </main>
@@ -836,28 +912,6 @@ document.querySelectorAll('[data-page]').forEach(btn => {
         const page = btn.getAttribute('data-page');
         if (page) showPage(page);
     });
-});
-
-// ساخت سریع کانفیگ (دمو)
-const quickCreateBtn = document.getElementById('quickCreate');
-const quickResetBtn = document.getElementById('quickReset');
-const quickResult = document.getElementById('quickResult');
-
-quickCreateBtn.addEventListener('click', () => {
-    const username = document.getElementById('quick-username').value || 'test-user';
-    const proto = document.getElementById('quick-proto').value;
-    const traffic = document.getElementById('quick-traffic').value || 50;
-    const days = document.getElementById('quick-days').value || 30;
-
-    const fakeLink = `reluy://${proto}/${username}?traffic=${traffic}GB&days=${days}`;
-    quickResult.textContent = 'کانفیگ تستی ساخته شد: ' + fakeLink;
-});
-
-quickResetBtn.addEventListener('click', () => {
-    document.getElementById('quick-username').value = '';
-    document.getElementById('quick-traffic').value = 50;
-    document.getElementById('quick-days').value = 30;
-    quickResult.textContent = '';
 });
 
 // فرم ساخت کانفیگ کامل
@@ -900,14 +954,14 @@ saveSettingsBtn.addEventListener('click', () => {
     const defaultDays = document.getElementById('defaultDays').value;
 
     const settings = { backendUrl, defaultSub, defaultTraffic, defaultDays };
-    localStorage.setItem('reluySettings', JSON.stringify(settings));
+    localStorage.setItem('pasargadSettings', JSON.stringify(settings));
     settingsResult.textContent = 'تنظیمات ذخیره شد.';
 });
 
 // تم (دمو)
 const themeToggle = document.getElementById('themeToggle');
 themeToggle.addEventListener('click', () => {
-    alert('فعلاً تم تیره فعاله؛ می‌تونی بعداً تم روشن و نئون اضافه کنی 😉');
+    alert('فعلاً تم تیره طلایی پاسارگاد فعاله؛ بعداً می‌تونی تم روشن و رنگی هم اضافه کنی 😉');
 });
 </script>
 </body>
