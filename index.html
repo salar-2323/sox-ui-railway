@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>3x-UI Style Panel — Full Options</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+:root {
+    --bg: #020617;
+    --bg-soft: #0b1120;
+    --card: #0f172a;
+    --border: #1f2937;
+    --accent: #38bdf8;
+    --accent-soft: rgba(56,189,248,0.18);
+    --text: #e5e7eb;
+    --muted: #9ca3af;
+    --danger: #ef4444;
+    --success: #22c55e;
+    --warning: #facc15;
+    --radius: 12px;
+    --blur: 14px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+body {
+    background: radial-gradient(circle at top, #1f2937 0, #020617 45%, #000 100%);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 260px;
+    background: linear-gradient(to bottom, #020617, #020617 40%, #000 100%);
+    border-right: 1px solid #0f172a;
+    padding: 18px 14px;
+    display: flex;
+    flex-direction: column;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 22px;
+}
+
+.brand-logo {
+    width: 34px;
+    height: 34px;
+    border-radius: 12px;
+    background: radial-gradient(circle at 30% 0, #38bdf8 0, #0ea5e9 40%, #0f172a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+    color: #0b1120;
+    box-shadow: 0 0 18px rgba(56,189,248,0.6);
+}
+
+.brand-title {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.brand-sub {
+    font-size: 11px;
+    color: var(--muted);
+}
+
+.nav-section-title {
+    font-size: 11px;
+    color: var(--muted);
+    margin: 14px 4px 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.nav-list {
+    list-style: none;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 10px;
+    border-radius: 9px;
+    color: var(--muted);
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.18s;
+    margin-bottom: 4px;
+}
+
+.nav-link:hover {
+    background: rgba(15,23,42,0.9);
+    color: var(--text);
+}
+
+.nav-link.active {
+    background: var(--accent-soft);
+    color: var(--accent);
+    border: 1px solid rgba(56,189,248,0.5);
+}
+
+.nav-icon {
+    width: 18px;
+    height: 18px;
+    border-radius: 6px;
+    border: 1px solid #1f2937;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    font-size: 11px;
+    color: var(--muted);
+    border-top: 1px solid #0f172a;
+    padding-top: 10px;
+}
+
+/* MAIN */
+.main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 18px 22px;
+}
+
+/* HEADER */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.header-title {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.header-sub {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 999px;
+    padding: 7px 14px;
+    font-size: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: 0.18s;
+}
+
+.btn-primary {
+    background: linear-gradient(to right, #0ea5e9, #38bdf8);
+    color: #0b1120;
+    font-weight: 500;
+    box-shadow: 0 0 16px rgba(56,189,248,0.5);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid #1f2937;
+    color: var(--muted);
+}
+
+.btn-outline:hover {
+    border-color: #38bdf8;
+    color: var(--accent);
+}
+
+.user-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(15,23,42,0.9);
+    border: 1px solid #1f2937;
+    font-size: 12px;
+}
+
+.user-avatar {
+    width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    background: radial-gradient(circle at 30% 0, #22c55e 0, #16a34a 40%, #0f172a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+/* GRID */
+.grid-2 {
+    display: grid;
+    grid-template-columns: 2fr 1.4fr;
+    gap: 14px;
+    margin-bottom: 14px;
+}
+
+.card {
+    background: rgba(15,23,42,0.95);
+    border-radius: 14px;
+    border: 1px solid #1f2937;
+    padding: 14px 14px 12px;
+    box-shadow: 0 18px 40px rgba(15,23,42,0.9);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.card-title {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.card-sub {
+    font-size: 11px;
+    color: var(--muted);
+}
+
+/* STATS */
+.stats-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.stat-pill {
+    flex: 1;
+    padding: 8px 9px;
+    border-radius: 10px;
+    background: rgba(15,23,42,0.9);
+    border: 1px solid #111827;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.stat-label {
+    font-size: 11px;
+    color: var(--muted);
+}
+
+.stat-value {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.stat-tag {
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 999px;
+    background: rgba(34,197,94,0.12);
+    color: var(--success);
+    align-self: flex-start;
+}
+
+/* TABLE */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-top: 6px;
+}
+
+.table th,
+.table td {
+    padding: 6px 4px;
+    text-align: right;
+}
+
+.table th {
+    color: var(--muted);
+    font-weight: 500;
+    border-bottom: 1px solid #111827;
+}
+
+.table tr {
+    border-bottom: 1px solid #020617;
+}
+
+.table tr:hover {
+    background: rgba(15,23,42,0.7);
+}
+
+.badge {
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 999px;
+    border: 1px solid #1f2937;
+}
+
+.badge-proto {
+    color: var(--accent);
+    border-color: rgba(56,189,248,0.6);
+}
+
+.badge-active {
+    color: var(--success);
+    border-color: rgba(34,197,94,0.6);
+}
+
+.badge-expired {
+    color: var(--danger);
+    border-color: rgba(239,68,68,0.6);
+}
+
+.badge-pending {
+    color: var(--warning);
+    border-color: rgba(250,204,21,0.6);
+}
+
+.row-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.link {
+    font-size: 11px;
+    color: var(--accent);
+    cursor: pointer;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+/* FORM */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.form-label {
+    font-size: 11px;
+    color: var(--muted);
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+    background: rgba(15,23,42,0.9);
+    border-radius: 9px;
+    border: 1px solid #111827;
+    padding: 7px 9px;
+    font-size: 12px;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+    border-color: #38bdf8;
+    box-shadow: 0 0 0 1px rgba(56,189,248,0.4);
+}
+
+.form-textarea {
+    min-height: 60px;
+    resize: vertical;
+}
+
+.form-hint {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 4px;
+}
+
+.form-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+/* PAGES */
+.page { display: none; }
+.page.active { display: block; }
+
+@media (max-width: 900px) {
+    .sidebar { display: none; }
+    .grid-2 { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+    <div class="brand">
+        <div class="brand-logo">3X</div>
+        <div>
+            <div class="brand-title">3x-UI Style Panel</div>
+            <div class="brand-sub">Reluy / V2Ray / Reality</div>
+        </div>
+    </div>
+
+    <div class="nav-section-title">ناوبری اصلی</div>
+    <ul class="nav-list">
+        <li><div class="nav-link active" data-page="dashboard"><div class="nav-icon">🏠</div><span>داشبورد</span></div></li>
+        <li><div class="nav-link" data-page="users"><div class="nav-icon">👥</div><span>کاربران</span></div></li>
+        <li><div class="nav-link" data-page="configs"><div class="nav-icon">📜</div><span>کانفیگ‌ها</span></div></li>
+        <li><div class="nav-link" data-page="subs"><div class="nav-icon">🔗</div><span>لینک ساب</span></div></li>
+        <li><div class="nav-link" data-page="settings"><div class="nav-icon">⚙️</div><span>تنظیمات</span></div></li>
+        <li><div class="nav-link" data-page="logs"><div class="nav-icon">📄</div><span>لاگ‌ها</span></div></li>
+    </ul>
+
+    <div class="sidebar-footer">
+        نسخه 1.0.0 — پنل شبیه 3x-ui  
+        <br>فرانت‌اند آماده اتصال به بک‌اند
+    </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-left">
+            <div class="header-title">پنل مدیریت Reluy / 3x-UI Style</div>
+            <div class="header-sub">همه‌چیز: کاربران، کانفیگ‌ها، ساب، لاگ، تنظیمات — آماده اتصال به API</div>
+        </div>
+        <div class="header-right">
+            <button class="btn btn-outline" id="themeToggle">تم</button>
+            <button class="btn btn-primary" data-page="create-config">ساخت سریع کانفیگ</button>
+            <div class="user-pill">
+                <div class="user-avatar">AD</div>
+                <span>ادمین</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- DASHBOARD -->
+    <section class="page active" id="page-dashboard">
+        <div class="grid-2">
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="card-title">آمار کلی سرور</div>
+                        <div class="card-sub">وضعیت کانفیگ‌ها، کاربران و ترافیک</div>
+                    </div>
+                </div>
+                <div class="stats-row">
+                    <div class="stat-pill">
+                        <div class="stat-label">کاربران فعال</div>
+                        <div class="stat-value" id="stat-users">24</div>
+                        <div class="stat-tag">در حال استفاده</div>
+                    </div>
+                    <div class="stat-pill">
+                        <div class="stat-label">کانفیگ‌های فعال</div>
+                        <div class="stat-value" id="stat-configs">38</div>
+                        <div class="stat-tag">بدون خطا</div>
+                    </div>
+                    <div class="stat-pill">
+                        <div class="stat-label">ترافیک امروز</div>
+                        <div class="stat-value" id="stat-traffic">92 GB</div>
+                        <div class="stat-tag">+18% نسبت به دیروز</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="card-title">ساخت سریع کانفیگ تست</div>
+                        <div class="card-sub">برای کاربر جدید یا تست اتصال</div>
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">نام کاربر</label>
+                        <input class="form-input" id="quick-username" placeholder="مثلاً: test-user">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">پروتکل</label>
+                        <select class="form-select" id="quick-proto">
+                            <option value="vless">VLESS</option>
+                            <option value="vmess">VMESS</option>
+                            <option value="trojan">TROJAN</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">حجم (GB)</label>
+                        <input class="form-input" id="quick-traffic" type="number" value="50">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">مدت اعتبار (روز)</label>
+                        <input class="form-input" id="quick-days" type="number" value="30">
+                    </div>
+                </div>
+                <div class="form-footer">
+                    <button class="btn btn-outline" id="quickReset">ریست</button>
+                    <button class="btn btn-primary" id="quickCreate">ساخت کانفیگ</button>
+                </div>
+                <div class="form-hint" id="quickResult"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- USERS PAGE -->
+    <section class="page" id="page-users">
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">مدیریت کاربران</div>
+                    <div class="card-sub">لیست کاربران، وضعیت، حجم، تاریخ انقضا</div>
+                </div>
+                <button class="btn btn-outline">افزودن کاربر</button>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>نام کاربر</th>
+                        <th>وضعیت</th>
+                        <th>حجم باقی‌مانده</th>
+                        <th>انقضا</th>
+                        <th>عملیات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>vip-user</td>
+                        <td><span class="badge badge-active">فعال</span></td>
+                        <td>120 GB</td>
+                        <td>45 روز</td>
+                        <td>
+                            <div class="row-actions">
+                                <span class="link">ویرایش</span>
+                                <span class="link">نمایش کانفیگ‌ها</span>
+                                <span class="link">مسدود</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>test-expired</td>
+                        <td><span class="badge badge-expired">منقضی</span></td>
+                        <td>0 GB</td>
+                        <td>0 روز</td>
+                        <td>
+                            <div class="row-actions">
+                                <span class="link">تمدید</span>
+                                <span class="link">حذف</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- CONFIGS PAGE -->
+    <section class="page" id="page-configs">
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">لیست کانفیگ‌ها</div>
+                    <div class="card-sub">مدیریت کامل کانفیگ‌ها مثل 3x-ui</div>
+                </div>
+                <button class="btn btn-outline" data-page="create-config">کانفیگ جدید</button>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>کاربر</th>
+                        <th>پروتکل</th>
+                        <th>پورت</th>
+                        <th>هاست / ساب‌دامین</th>
+                        <th>وضعیت</th>
+                        <th>ترافیک</th>
+                        <th>انقضا</th>
+                        <th>عملیات</th>
+                    </tr>
+                </thead>
+                <tbody id="configsTableBody">
+                    <tr>
+                        <td>user1</td>
+                        <td><span class="badge badge-proto">VLESS</span></td>
+                        <td>443</td>
+                        <td>sub1.example.com</td>
+                        <td><span class="badge badge-active">فعال</span></td>
+                        <td>120 GB</td>
+                        <td>140 روز</td>
+                        <td>
+                            <div class="row-actions">
+                                <span class="link">ویرایش</span>
+                                <span class="link">کپی لینک</span>
+                                <span class="link">حذف</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>test-reality</td>
+                        <td><span class="badge badge-proto">VLESS Reality</span></td>
+                        <td>443</td>
+                        <td>cdn.example.com</td>
+                        <td><span class="badge badge-pending">در انتظار</span></td>
+                        <td>50 GB</td>
+                        <td>30 روز</td>
+                        <td>
+                            <div class="row-actions">
+                                <span class="link">فعال‌سازی</span>
+                                <span class="link">حذف</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- SUBS PAGE -->
+    <section class="page" id="page-subs">
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">لینک‌های ساب (Subscription)</div>
+                    <div class="card-sub">ساخت و مدیریت لینک ساب برای کاربران</div>
+                </div>
+                <button class="btn btn-outline">ساخت لینک ساب جدید</button>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>کاربر</th>
+                        <th>لینک ساب</th>
+                        <th>وضعیت</th>
+                        <th>عملیات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>vip-user</td>
+                        <td>https://example.com/sub/vip-user</td>
+                        <td><span class="badge badge-active">فعال</span></td>
+                        <td>
+                            <div class="row-actions">
+                                <span class="link">کپی</span>
+                                <span class="link">غیرفعال</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- CREATE CONFIG PAGE -->
+    <section class="page" id="page-create-config">
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">ساخت کانفیگ جدید</div>
+                    <div class="card-sub">فرم کامل شبیه 3x-ui برای ساخت کانفیگ</div>
+                </div>
+            </div>
+
+            <form id="createConfigForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">نام کاربر</label>
+                        <input class="form-input" name="username" required placeholder="مثلاً: my-user">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">پروتکل</label>
+                        <select class="form-select" name="protocol">
+                            <option value="vless">VLESS</option>
+                            <option value="vmess">VMESS</option>
+                            <option value="trojan">TROJAN</option>
+                            <option value="vless-reality">VLESS Reality</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">پورت</label>
+                        <input class="form-input" name="port" type="number" value="443">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">هاست / ساب‌دامین</label>
+                        <input class="form-input" name="host" placeholder="مثلاً: cdn.example.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">حجم (GB)</label>
+                        <input class="form-input" name="traffic" type="number" value="100">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">مدت اعتبار (روز)</label>
+                        <input class="form-input" name="days" type="number" value="30">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">توضیحات</label>
+                        <textarea class="form-textarea" name="note" placeholder="مثلاً: کاربر VIP، فقط برای تست"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">فعال باشد؟</label>
+                        <select class="form-select" name="active">
+                            <option value="true">بله</option>
+                            <option value="false">خیر</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-footer">
+                    <button type="reset" class="btn btn-outline">پاک کردن</button>
+                    <button type="submit" class="btn btn-primary">ساخت کانفیگ</button>
+                </div>
+                <div class="form-hint" id="createResult"></div>
+            </form>
+        </div>
+    </section>
+
+    <!-- SETTINGS PAGE -->
+    <section class="page" id="page-settings">
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">تنظیمات پنل</div>
+                    <div class="card-sub">تنظیمات عمومی، API، ساب‌دامین‌ها</div>
+                </div>
+            </div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label">آدرس API بک‌اند</label>
+                    <input class="form-input" id="backendUrl" placeholder="مثلاً: https://your-backend.up.railway.app/api">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">ساب‌دامین پیش‌فرض</label>
+                    <input class="form-input" id="defaultSub" placeholder="sub.example.com">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">حداکثر ترافیک پیش‌فرض (GB)</label>
+                    <input class="form-input" id="defaultTraffic" type="number" value="100">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">حداکثر مدت اعتبار پیش‌فرض (روز)</label>
+                    <input class="form-input" id="defaultDays" type="number" value="30">
+                </div>
+            </div>
+            <div class="form-footer">
+                <button class="btn btn-primary" id="saveSettings">ذخیره تنظیمات</button>
+            </div>
+            <div class="form-hint" id="settingsResult"></div>
+        </div>
+    </section>
+
+    <!-- LOGS PAGE -->
+    <section class="page" id="page-logs">
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">لاگ‌ها</div>
+                    <div class="card-sub">آخرین عملیات انجام شده روی سرور و کانفیگ‌ها</div>
+                </div>
+            </div>
+            <div class="form-textarea" style="min-height: 140px; font-family: monospace; font-size: 11px;">
+[INFO] پنل 3x-UI Style راه‌اندازی شد.
+[INFO] کانفیگ جدید برای user1 ساخته شد.
+[INFO] لینک ساب vip-user ایجاد شد.
+[WARN] کانفیگ test-expired منقضی شده است.
+[INFO] تنظیمات پنل ذخیره شد.
+            </div>
+        </div>
+    </section>
+</main>
+
+<script>
+// سوئیچ صفحات
+const navLinks = document.querySelectorAll('.nav-link');
+const pages = document.querySelectorAll('.page');
+
+function showPage(pageId) {
+    pages.forEach(p => p.classList.remove('active'));
+    const page = document.getElementById('page-' + pageId);
+    if (page) page.classList.add('active');
+
+    navLinks.forEach(l => l.classList.remove('active'));
+    navLinks.forEach(l => {
+        if (l.dataset.page === pageId) l.classList.add('active');
+    });
+}
+
+navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        showPage(link.dataset.page);
+    });
+});
+
+// دکمه‌هایی که data-page دارند
+document.querySelectorAll('[data-page]').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const page = btn.getAttribute('data-page');
+        if (page) showPage(page);
+    });
+});
+
+// ساخت سریع کانفیگ (دمو)
+const quickCreateBtn = document.getElementById('quickCreate');
+const quickResetBtn = document.getElementById('quickReset');
+const quickResult = document.getElementById('quickResult');
+
+quickCreateBtn.addEventListener('click', () => {
+    const username = document.getElementById('quick-username').value || 'test-user';
+    const proto = document.getElementById('quick-proto').value;
+    const traffic = document.getElementById('quick-traffic').value || 50;
+    const days = document.getElementById('quick-days').value || 30;
+
+    const fakeLink = `reluy://${proto}/${username}?traffic=${traffic}GB&days=${days}`;
+    quickResult.textContent = 'کانفیگ تستی ساخته شد: ' + fakeLink;
+});
+
+quickResetBtn.addEventListener('click', () => {
+    document.getElementById('quick-username').value = '';
+    document.getElementById('quick-traffic').value = 50;
+    document.getElementById('quick-days').value = 30;
+    quickResult.textContent = '';
+});
+
+// فرم ساخت کانفیگ کامل
+const createForm = document.getElementById('createConfigForm');
+const createResult = document.getElementById('createResult');
+
+createForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const formData = new FormData(createForm);
+    const data = Object.fromEntries(formData.entries());
+
+    const backendUrl = document.getElementById('backendUrl').value;
+    if (!backendUrl) {
+        createResult.textContent = 'اول آدرس API رو در تنظیمات پنل وارد کن.';
+        return;
+    }
+
+    fetch(backendUrl + "/configs", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+    })
+        .then(r => r.json())
+        .then(res => {
+            createResult.textContent = 'کانفیگ ساخته شد: ' + (res.config?.link || 'بدون لینک');
+        })
+        .catch(() => {
+            createResult.textContent = 'خطا در اتصال به API.';
+        });
+});
+
+// تنظیمات پنل
+const saveSettingsBtn = document.getElementById('saveSettings');
+const settingsResult = document.getElementById('settingsResult');
+
+saveSettingsBtn.addEventListener('click', () => {
+    const backendUrl = document.getElementById('backendUrl').value;
+    const defaultSub = document.getElementById('defaultSub').value;
+    const defaultTraffic = document.getElementById('defaultTraffic').value;
+    const defaultDays = document.getElementById('defaultDays').value;
+
+    const settings = { backendUrl, defaultSub, defaultTraffic, defaultDays };
+    localStorage.setItem('reluySettings', JSON.stringify(settings));
+    settingsResult.textContent = 'تنظیمات ذخیره شد.';
+});
+
+// تم (دمو)
+const themeToggle = document.getElementById('themeToggle');
+themeToggle.addEventListener('click', () => {
+    alert('فعلاً تم تیره فعاله؛ می‌تونی بعداً تم روشن و نئون اضافه کنی 😉');
+});
+</script>
+</body>
+</html>
