@@ -1,19 +1,18 @@
-# مرحله اول: بک‌اند
-FROM node:18 AS backend
-WORKDIR /app
-
-COPY server.js package*.json ./
-RUN npm install
-
-# مرحله دوم: سرو پنل HTML
 FROM node:18
+
 WORKDIR /app
 
+# نصب serve برای سرو HTML
 RUN npm install -g serve
 
-COPY public ./public
-COPY --from=backend /app /app/backend
+# کپی فایل‌ها
+COPY server.js .
+COPY package*.json .
+COPY index.html .
+
+RUN npm install
 
 ENV PORT=3000
 
-CMD node /app/backend/server.js & serve -s public -l $PORT
+# اجرای بک‌اند + سرو HTML
+CMD node server.js & serve -s . -l $PORT
